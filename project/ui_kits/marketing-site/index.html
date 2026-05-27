@@ -132,10 +132,15 @@
       });
     }
 
+    /* Respect the OS "reduce motion" setting — skip all JS motion */
+    var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     /* ── BOOT: wait for React to paint ─────────────────────── */
     var timer = setInterval(function () {
       if (!document.querySelector('.sb-eyebrow-row')) return;
       clearInterval(timer);
+
+      if (REDUCE) return; /* CSS already shows everything statically */
 
       initAnims();
       window.addEventListener('mousemove', onTiltMove,    { passive: true });

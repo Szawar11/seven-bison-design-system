@@ -5,7 +5,34 @@
 @import url("../../colors_and_type.css");
 
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: var(--text-primary); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+html {
+  background: var(--surface-canvas); color: var(--text-primary);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+body { margin: 0; padding: 0; min-height: 100svh; background: var(--surface-canvas); color: var(--text-primary); font-family: var(--font-body); }
+
+/* Headings never produce orphans or lopsided line breaks */
+h1, h2, h3, h4, .sb-display,
+.sb-work .t, .sb-step .t, .sb-quote { text-wrap: balance; }
+/* Body copy fills lines evenly and avoids single-word last lines */
+p, .sb-lead, .sb-body, .sb-body-lg { text-wrap: pretty; }
+
+/* On-brand focus + selection (pink is signal) */
+:focus-visible { outline: 2px solid var(--sb-pink); outline-offset: 3px; }
+::selection { background: var(--sb-pink); color: #FFFFFF; }
+
+/* Accessibility — honour reduced-motion: kill reveals, tilt, parallax, loops */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .anim-ready { opacity: 1 !important; transform: none !important; }
+}
 
 /* ============================================================
    Layout shells
@@ -23,9 +50,10 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
    ============================================================ */
 .anim-ready {
   opacity: 0;
-  transform: translateY(26px);
-  transition: opacity 0.65s var(--ease-enter),
-              transform 0.65s var(--ease-enter);
+  transform: translateY(28px);
+  /* Snappy expo-out reveal — settles fast, feels premium */
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .anim-ready.is-visible {
   opacity: 1;
