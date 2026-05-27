@@ -1,0 +1,39 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Form Input</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .field { margin-top: 14px; }
+  .field .l { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 6px; display: block; }
+  .field .help { font-family: var(--font-body); font-size: 11px; color: var(--text-tertiary); margin-top: 6px; }
+  input.in, textarea.in {
+    width: 100%; box-sizing: border-box;
+    height: 44px; padding: 0 14px;
+    background: #FFFFFF;
+    border: 1px solid var(--border-hairline);
+    border-radius: 2px;
+    font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
+    outline: none;
+  }
+  textarea.in { height: 92px; padding: 12px 14px; resize: none; }
+  input.in.focus {
+    border-color: var(--sb-pink);
+    box-shadow: 0 0 0 3px rgba(232,7,135,0.12);
+  }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">14</span><span class="label">Form Input</span><span class="rule"></span></div>
+  <div class="grid">
+    <div class="field">
+      <label class="l">Company</label>
+      <input class="in" value="Northwind Industrial">
+    </div>
+    <div class="field">
+      <label class="l">Work email · focused</label>
+      <input class="in focus" value="taylor@northwind.com">
+      <div class="help">Border &amp; 3 px halo at #E80787 · 12% alpha.</div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="l">Project brief</label>
+    <textarea class="in">Q3 sector launch. Two 60-second films, four social cutdowns. Brand-safe.</textarea>
+  </div>
+</div></body></html>

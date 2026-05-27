@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Radii &amp; Borders</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 16px; }
+  .cell { display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .box { width: 88px; height: 56px; background: #FFFFFF; border: 1px solid var(--border-hairline); }
+  .meta { font-family: var(--font-display); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text-primary); }
+  .sub { font-family: var(--font-body); font-size: 10px; color: var(--text-tertiary); }
+  .borders { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 20px; }
+  .b { padding: 12px; border-radius: 0; font-family: var(--font-body); font-size: 11px; color: var(--text-tertiary); }
+  .b.hair { border: 1px solid var(--border-hairline); }
+  .b.strong { border: 1px solid var(--sb-graphite); color: var(--text-primary); }
+  .b.ghost { border: 1px dashed var(--sb-pink); color: var(--sb-pink); }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">09</span><span class="label">Radii &amp; Borders</span><span class="rule"></span></div>
+  <div class="row">
+    <div class="cell"><div class="box" style="border-radius:0"></div><div class="meta">0 px</div><div class="sub">Default · panels, hero blocks</div></div>
+    <div class="cell"><div class="box" style="border-radius:2px"></div><div class="meta">2 px</div><div class="sub">Inputs, tags</div></div>
+    <div class="cell"><div class="box" style="border-radius:4px"></div><div class="meta">4 px</div><div class="sub">Buttons, callout chips</div></div>
+    <div class="cell"><div class="box" style="border-radius:999px;width:60px"></div><div class="meta">Pill</div><div class="sub">Sector tags only · rare</div></div>
+  </div>
+  <div class="borders">
+    <div class="b hair">1 px hairline · <span style="color:var(--text-primary)">#E8E8E8</span></div>
+    <div class="b strong">1 px strong · <span style="color:var(--text-tertiary)">#2A2A2A</span></div>
+    <div class="b ghost">1 px dashed pink · ghost</div>
+  </div>
+</div></body></html>

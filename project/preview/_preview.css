@@ -1,0 +1,81 @@
+/* Shared preview-card chrome. Each card is 700px wide.
+   These rules just zero the page margin and constrain to card width
+   so screenshots are clean. Cards themselves use the real tokens. */
+
+@import url("../colors_and_type.css");
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--surface-canvas);
+  font-family: var(--font-body);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.card {
+  width: 700px;
+  box-sizing: border-box;
+  padding: 28px 32px;
+  background: var(--surface-canvas);
+  color: var(--text-primary);
+}
+
+.card.dark {
+  background: var(--sb-true-black);
+  color: #FFFFFF;
+}
+
+.swatch {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.label-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 16px;
+  color: var(--text-tertiary);
+}
+.label-row .name {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+.label-row .meta { font-variant-numeric: tabular-nums; }
+
+.section-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-row .idx {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--sb-pink);
+  font-variant-numeric: tabular-nums;
+}
+.section-row .label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+.section-row .rule {
+  flex: 1;
+  height: 1px;
+  background: var(--border-hairline);
+}
+.dark .section-row .label { color: #FFFFFF; }
+.dark .section-row .rule { background: rgba(255,255,255,0.10); }

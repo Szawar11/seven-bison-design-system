@@ -1,0 +1,298 @@
+/* Site-level paint that builds on colors_and_type.css.
+   Keep declarations component-style: lots of small named classes,
+   no deep selectors. */
+
+@import url("../../colors_and_type.css");
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: var(--text-primary); font-family: var(--font-body); -webkit-font-smoothing: antialiased; }
+
+/* ============================================================
+   Layout shells
+   ============================================================ */
+.sb-container { max-width: 1440px; margin: 0 auto; padding: 0 80px; }
+@media (max-width: 900px) { .sb-container { padding: 0 24px; } }
+
+.sb-section { padding: 96px 0; }
+.sb-section--tight { padding: 64px 0; }
+
+/* dark wraps the section in true black, with the container inside */
+.sb-section.dark { background: #000000; color: #FFFFFF; }
+.sb-section.dark .sb-eyebrow-row .lbl,
+.sb-section.dark h1, .sb-section.dark h2, .sb-section.dark h3 { color: #FFFFFF; }
+.sb-section.dark .sb-eyebrow-row .rule { background: rgba(255,255,255,0.12); }
+
+/* ============================================================
+   Header / nav
+   ============================================================ */
+.sb-header {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--surface-canvas);
+  border-bottom: 1px solid var(--border-hairline);
+}
+.sb-header.dark { background: #000; border-bottom-color: rgba(255,255,255,0.06); }
+.sb-header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 80px;
+}
+.sb-logo { height: 36px; display: block; cursor: pointer; }
+.sb-nav { display: flex; align-items: center; gap: 32px; }
+.sb-nav a {
+  font-family: var(--font-body); font-weight: 600; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap;
+  color: var(--text-primary); text-decoration: none; cursor: pointer;
+  transition: color 200ms var(--ease-standard);
+}
+.sb-btn { white-space: nowrap; }
+.sb-nav a:hover { color: var(--sb-pink); }
+.sb-nav a.is-active { color: var(--sb-pink); }
+.sb-header.dark .sb-nav a { color: #FFFFFF; }
+.sb-header.dark .sb-nav a:hover { color: var(--sb-pink); }
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.sb-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-body); font-weight: 600; font-size: 12px;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  padding: 14px 22px; border-radius: 4px; border: 0;
+  cursor: pointer; line-height: 1;
+  transition: background 200ms var(--ease-standard), color 200ms var(--ease-standard), border-color 200ms var(--ease-standard);
+}
+.sb-btn--primary { background: var(--sb-pink); color: #FFFFFF; }
+.sb-btn--primary:hover { background: #C0066F; }
+.sb-btn--primary:active { background: #9A0558; }
+.sb-btn--secondary { background: transparent; color: var(--sb-pink); border: 1px solid var(--sb-pink); }
+.sb-btn--secondary:hover { background: rgba(232,7,135,0.06); }
+.sb-btn--secondary-dark { background: transparent; color: #FFFFFF; border: 1px solid #FFFFFF; }
+.sb-btn--secondary-dark:hover { background: rgba(255,255,255,0.06); }
+.sb-btn--text {
+  background: transparent; border: 0; padding: 14px 0;
+  color: var(--sb-pink);
+}
+.sb-btn--text:hover { color: #9A0558; }
+
+/* ============================================================
+   Section header pattern (the brand signature)
+   ============================================================ */
+.sb-eyebrow-row {
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 24px;
+}
+.sb-eyebrow-row .idx {
+  font-family: var(--font-body); font-weight: 600; font-size: 14px;
+  color: var(--sb-pink); font-variant-numeric: tabular-nums;
+}
+.sb-eyebrow-row .lbl {
+  font-family: var(--font-display); font-weight: 600; font-size: 14px;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--text-primary);
+}
+.sb-eyebrow-row .rule { flex: 1; height: 1px; background: var(--border-hairline); }
+
+/* ============================================================
+   Type
+   ============================================================ */
+.sb-display {
+  font-family: var(--font-display); font-weight: 700;
+  font-size: clamp(40px, 6vw, 72px); line-height: 1.05;
+  letter-spacing: -0.015em; margin: 0;
+}
+.sb-h2 {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: clamp(28px, 3vw, 40px); line-height: 1.15;
+  letter-spacing: -0.01em; margin: 0;
+}
+.sb-h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.25; margin: 0; }
+.sb-lead { font-family: var(--font-body); font-size: 18px; line-height: 28px; color: var(--text-secondary); margin: 16px 0 0; max-width: 56ch; }
+.sb-body { font-family: var(--font-body); font-size: 14px; line-height: 22px; color: var(--text-secondary); margin: 0; }
+.sb-meta { font-family: var(--font-body); font-size: 12px; line-height: 18px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.14em; font-weight: 500; }
+.sb-pink { color: var(--sb-pink); }
+
+/* ============================================================
+   Cards & grids
+   ============================================================ */
+.sb-card {
+  background: #FFFFFF;
+  border: 1px solid var(--border-hairline);
+  padding: 32px;
+  transition: border-color 200ms var(--ease-standard);
+}
+.sb-card:hover { border-color: var(--sb-pink); }
+.sb-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.sb-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.sb-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+@media (max-width: 900px) {
+  .sb-grid-3, .sb-grid-2, .sb-grid-4 { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   Reel frame (the cinematic component)
+   ============================================================ */
+.sb-reel {
+  position: relative; aspect-ratio: 16/9;
+  background: #000000;
+  border: 1px solid rgba(255,255,255,0.06);
+  overflow: hidden;
+  cursor: pointer;
+}
+.sb-reel--still {
+  background:
+    radial-gradient(ellipse at 30% 40%, #1a1a1a 0%, #050505 70%),
+    linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+}
+.sb-reel--still-cool {
+  background:
+    radial-gradient(ellipse at 60% 50%, #1a2230 0%, #050810 70%),
+    linear-gradient(180deg, #0a0d12 0%, #000 100%);
+}
+.sb-reel::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 96px;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 100%);
+  pointer-events: none;
+}
+.sb-reel .sb-play {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 80px; height: 80px; border: 1.5px solid var(--sb-pink);
+  border-radius: 999px; display: flex; align-items: center; justify-content: center;
+  z-index: 2;
+  transition: transform 200ms var(--ease-standard), background 200ms var(--ease-standard);
+}
+.sb-reel:hover .sb-play { background: rgba(232,7,135,0.12); }
+.sb-reel .sb-play svg { width: 28px; height: 28px; color: var(--sb-pink); fill: currentColor; }
+.sb-reel .sb-reel-meta {
+  position: absolute; left: 24px; bottom: 20px; z-index: 2;
+  display: flex; gap: 10px; align-items: center;
+  font-family: var(--font-body); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.85);
+}
+.sb-reel .sb-reel-meta .dot { width: 4px; height: 4px; background: var(--sb-pink); border-radius: 50%; }
+
+/* ============================================================
+   Tags
+   ============================================================ */
+.sb-tag {
+  display: inline-flex; align-items: center;
+  font-family: var(--font-body); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  padding: 6px 12px; border-radius: 2px; line-height: 1;
+}
+.sb-tag--fill { background: var(--sb-pink); color: #FFFFFF; }
+.sb-tag--outline { background: transparent; border: 1px solid var(--sb-graphite); color: var(--text-primary); }
+.sb-tag--outline-dark { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: #FFFFFF; }
+.sb-tag--pill { border-radius: 999px; padding: 6px 14px; border: 1px solid var(--border-hairline); background: #FFFFFF; color: var(--text-primary); }
+
+/* ============================================================
+   Trust strip / logo wall
+   ============================================================ */
+.sb-trust { display: grid; grid-template-columns: repeat(6, 1fr); gap: 32px; align-items: center; }
+.sb-trust .logo {
+  height: 24px;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sb-medium-gray);
+  border: 1px dashed transparent;
+}
+
+/* ============================================================
+   Selected work mosaic
+   ============================================================ */
+.sb-mosaic { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px 24px; }
+@media (max-width: 900px) { .sb-mosaic { grid-template-columns: 1fr; } }
+.sb-work {
+  background: transparent; cursor: pointer;
+}
+.sb-work .sb-reel {
+  aspect-ratio: 16/9;
+  margin-bottom: 16px;
+}
+.sb-work .t { font-family: var(--font-display); font-weight: 600; font-size: 22px; line-height: 1.2; color: #FFFFFF; margin: 0 0 6px; transition: color 200ms var(--ease-standard); }
+.sb-work:hover .t { color: var(--sb-pink); }
+.sb-work .m { font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #8A8A8A; }
+
+/* ============================================================
+   Steps / how-we-work
+   ============================================================ */
+.sb-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+.sb-step { padding: 24px 24px 24px 0; border-top: 1px solid var(--border-hairline); }
+.sb-step .n { font-family: var(--font-body); font-weight: 600; font-size: 14px; color: var(--sb-pink); margin-bottom: 12px; }
+.sb-step .t { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--text-primary); margin-bottom: 8px; }
+.sb-step .d { font-family: var(--font-body); font-size: 13px; line-height: 20px; color: var(--text-secondary); }
+
+/* ============================================================
+   Testimonial
+   ============================================================ */
+.sb-quote {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(22px, 2.4vw, 32px); line-height: 1.3;
+  letter-spacing: -0.005em;
+  color: var(--text-primary);
+  margin: 0;
+}
+.sb-quote-mark { color: var(--sb-pink); font-weight: 600; }
+.sb-quote-attr { margin-top: 24px; display: flex; align-items: center; gap: 16px; }
+.sb-quote-attr .name { font-family: var(--font-display); font-weight: 600; font-size: 14px; color: var(--text-primary); }
+.sb-quote-attr .role { font-family: var(--font-body); font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; letter-spacing: 0.14em; }
+.sb-quote-attr .av { width: 48px; height: 48px; border-radius: 50%; background: var(--sb-soft-gray); border: 1px solid var(--border-hairline); }
+
+/* ============================================================
+   Footer
+   ============================================================ */
+.sb-footer { border-top: 1px solid var(--border-hairline); padding: 64px 0 32px; background: var(--surface-canvas); }
+.sb-footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
+@media (max-width: 900px) { .sb-footer-grid { grid-template-columns: 1fr 1fr; } }
+.sb-footer h4 { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-primary); margin: 0 0 16px; }
+.sb-footer a { display: block; font-family: var(--font-body); font-size: 13px; color: var(--text-secondary); text-decoration: none; padding: 4px 0; cursor: pointer; }
+.sb-footer a:hover { color: var(--sb-pink); }
+.sb-footer .bottom { display: flex; justify-content: space-between; align-items: center; margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border-hairline); font-family: var(--font-body); font-size: 12px; color: var(--text-tertiary); }
+
+/* ============================================================
+   Hero — Light (homepage)
+   ============================================================ */
+.sb-hero { display: grid; grid-template-columns: 5fr 7fr; gap: 64px; padding: 96px 0; align-items: stretch; }
+@media (max-width: 900px) { .sb-hero { grid-template-columns: 1fr; } }
+.sb-hero-left { display: flex; flex-direction: column; justify-content: center; }
+.sb-hero-right { display: flex; align-items: center; }
+.sb-hero-right .sb-reel { width: 100%; }
+
+/* ============================================================
+   Hero — Dark (portfolio / case study)
+   ============================================================ */
+.sb-hero-dark { background: #000; color: #FFFFFF; padding: 120px 0 96px; position: relative; }
+.sb-hero-dark .sb-display { color: #FFFFFF; }
+.sb-hero-dark .sb-lead { color: #D9D9D9; }
+.sb-hero-dark .sb-meta { color: rgba(255,255,255,0.6); }
+
+/* ============================================================
+   Case study body
+   ============================================================ */
+.sb-cs-body { padding: 96px 0; }
+.sb-cs-body .col2 { display: grid; grid-template-columns: 1fr 2fr; gap: 64px; }
+.sb-cs-body .col2 .l { position: sticky; top: 100px; align-self: start; }
+.sb-cs-body p { font-family: var(--font-body); font-size: 16px; line-height: 28px; color: var(--text-secondary); margin: 0 0 20px; }
+.sb-cs-body h3 { font-family: var(--font-display); font-weight: 600; font-size: 28px; line-height: 1.2; color: var(--text-primary); margin: 32px 0 16px; }
+
+/* Result strip */
+.sb-results { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; border-top: 1px solid var(--border-strong); border-bottom: 1px solid var(--border-hairline); }
+.sb-results .r { padding: 32px 24px 32px 0; border-right: 1px solid var(--border-hairline); }
+.sb-results .r:last-child { border-right: 0; }
+.sb-results .v { font-family: var(--font-display); font-weight: 700; font-size: 40px; line-height: 1; color: var(--text-primary); margin-bottom: 8px; letter-spacing: -0.02em; }
+.sb-results .v .u { color: var(--sb-pink); font-size: 28px; }
+.sb-results .k { font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+
+/* CTA bar */
+.sb-cta-bar { background: var(--surface-canvas); padding: 96px 0; border-top: 1px solid var(--border-hairline); border-bottom: 1px solid var(--border-hairline); text-align: center; }
+.sb-cta-bar .sb-display { max-width: 18ch; margin: 0 auto; }
+.sb-cta-bar .actions { margin-top: 40px; display: inline-flex; gap: 16px; }
+
+/* Sector card */
+.sb-sector-card { padding: 32px; background: #FFFFFF; border: 1px solid var(--border-hairline); transition: border-color 200ms var(--ease-standard); cursor: pointer; }
+.sb-sector-card:hover { border-color: var(--sb-pink); }
+.sb-sector-card .ic { color: var(--sb-pink); margin-bottom: 24px; }
+.sb-sector-card .ic svg { width: 44px; height: 44px; display: block; }
+.sb-sector-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--text-primary); margin: 0 0 8px; }
+.sb-sector-card p { font-family: var(--font-body); font-size: 13px; line-height: 20px; color: var(--text-secondary); margin: 0 0 24px; }
+.sb-sector-card .more { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sb-pink); }

@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Motion</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 12px; margin-top: 16px; }
+  .cell { padding: 14px; border: 1px solid var(--border-hairline); background: #FFFFFF; }
+  .k { font-family: var(--font-display); font-weight: 600; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+  .v { font-family: var(--font-display); font-weight: 700; font-size: 22px; color: var(--text-primary); margin: 4px 0 6px; font-variant-numeric: tabular-nums; }
+  .d { font-family: var(--font-body); font-size: 11px; color: var(--text-tertiary); line-height: 16px; }
+  .ease { margin-top: 20px; padding: 14px; background: #FFFFFF; border: 1px solid var(--border-hairline); display: grid; grid-template-columns: 1fr 200px; gap: 16px; align-items: center; }
+  .ease svg { width: 100%; height: 64px; }
+  .ease .lbl { font-family: var(--font-display); font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-primary); }
+  .ease code { font-family: var(--font-body); font-size: 11px; color: var(--text-tertiary); display: block; margin-top: 4px; }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">10</span><span class="label">Motion · Durations &amp; Easing</span><span class="rule"></span></div>
+  <div class="row">
+    <div class="cell"><div class="k">Fast</div><div class="v">120ms</div><div class="d">Hover, focus, micro</div></div>
+    <div class="cell"><div class="k">Base</div><div class="v">200ms</div><div class="d">Default transitions</div></div>
+    <div class="cell"><div class="k">Slow</div><div class="v">400ms</div><div class="d">Reveals, drawers</div></div>
+    <div class="cell"><div class="k">Cinematic</div><div class="v">800ms</div><div class="d">Reel crossfades</div></div>
+  </div>
+  <div class="ease">
+    <svg viewBox="0 0 200 64" preserveAspectRatio="none">
+      <path d="M 0 60 C 40 60, 40 4, 200 4" fill="none" stroke="#E80787" stroke-width="2"/>
+    </svg>
+    <div><div class="lbl">Standard ease</div><code>cubic-bezier(0.2, 0.6, 0.2, 1)</code><code>No bounce. No spring overshoot.</code></div>
+  </div>
+</div></body></html>

@@ -1,0 +1,22 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Callouts</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 14px; }
+  .callout { background: #FFFFFF; border: 1px solid var(--border-hairline); padding: 16px 18px; display: flex; gap: 14px; align-items: flex-start; border-radius: 4px; }
+  .ic { color: var(--sb-pink); flex-shrink: 0; margin-top: 2px; }
+  .ic svg { width: 22px; height: 22px; display: block; }
+  .t { font-family: var(--font-display); font-weight: 600; font-size: 13px; color: var(--text-primary); margin: 0 0 4px; letter-spacing: 0.02em; }
+  .b { font-family: var(--font-body); font-size: 12px; line-height: 18px; color: var(--text-secondary); margin: 0; }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">15</span><span class="label">Callout Boxes</span><span class="rule"></span></div>
+  <div class="row">
+    <div class="callout">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="13"/><circle cx="12" cy="16.5" r="0.6" fill="currentColor"/></svg></div>
+      <div><p class="t">Info</p><p class="b">Important information goes here. Hairline border, no fill, pink icon stroke.</p></div>
+    </div>
+    <div class="callout">
+      <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><polyline points="8.2,12.4 10.8,15 16,9.4"/></svg></div>
+      <div><p class="t">Success</p><p class="b">This is a success message example. Same shell, with the pink check glyph.</p></div>
+    </div>
+  </div>
+</div></body></html>

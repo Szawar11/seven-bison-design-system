@@ -1,0 +1,32 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Tags &amp; Chips</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; align-items: center; }
+  .tag { font-family: var(--font-body); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; padding: 6px 12px; border-radius: 2px; display: inline-flex; align-items: center; gap: 8px; line-height: 1; }
+  .tag.fill { background: var(--sb-pink); color: #FFFFFF; }
+  .tag.outline { background: transparent; color: var(--text-primary); border: 1px solid var(--sb-graphite); }
+  .tag.add { background: transparent; color: var(--sb-pink); border: 1px dashed var(--sb-pink); }
+  .pill { font-family: var(--font-body); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; line-height: 1; border: 1px solid var(--border-hairline); color: var(--text-primary); background: #FFFFFF; }
+  .lbl { font-family: var(--font-display); font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-top: 16px; }
+  .x { opacity: 0.7; font-size: 13px; }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">13</span><span class="label">Tags &amp; Chips</span><span class="rule"></span></div>
+  <div class="lbl">Filled · default</div>
+  <div class="row">
+    <span class="tag fill">Tech</span>
+    <span class="tag fill">Heavy Industry <span class="x">×</span></span>
+    <span class="tag fill">Healthcare &amp; Pharma</span>
+  </div>
+  <div class="lbl">Outline · default</div>
+  <div class="row">
+    <span class="tag outline">Performance</span>
+    <span class="tag outline">Security <span class="x">×</span></span>
+    <span class="tag add">Add tag &nbsp;+</span>
+  </div>
+  <div class="lbl">Sector pill (rare · sector chips only)</div>
+  <div class="row">
+    <span class="pill">Tech</span>
+    <span class="pill">Heavy Industry</span>
+    <span class="pill">Healthcare &amp; Pharma</span>
+  </div>
+</div></body></html>

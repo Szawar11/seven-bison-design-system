@@ -1,0 +1,41 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Reel Frame · Dark</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .frame { position: relative; aspect-ratio: 16/7; background: #0A0A0A; overflow: hidden; border: 1px solid rgba(255,255,255,0.06); }
+  .frame::before {
+    /* simulated video still — dark gradient texture */
+    content: ""; position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 30% 40%, #1a1a1a 0%, #050505 70%),
+      linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+  }
+  .frame::after {
+    /* legibility overlay — the ONLY allowed gradient */
+    content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 64px;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 0%, #000 100%);
+  }
+  .play {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 64px; height: 64px; border: 1.5px solid var(--sb-pink); border-radius: 999px;
+    display: flex; align-items: center; justify-content: center; z-index: 2;
+  }
+  .play svg { width: 24px; height: 24px; color: var(--sb-pink); }
+  .meta {
+    position: absolute; left: 16px; bottom: 14px; z-index: 2;
+    font-family: var(--font-body); font-weight: 500; font-size: 11px;
+    color: rgba(255,255,255,0.8); letter-spacing: 0.14em; text-transform: uppercase;
+    display: flex; gap: 10px; align-items: center;
+  }
+  .meta .sep { width: 4px; height: 4px; background: var(--sb-pink); border-radius: 50%; }
+  .scrub { position: absolute; right: 16px; bottom: 20px; width: 200px; height: 2px; background: rgba(255,255,255,0.2); z-index: 2; }
+  .scrub::after { content: ""; position: absolute; left: 0; top: 0; height: 100%; width: 38%; background: #FFFFFF; }
+</style></head>
+<body><div class="card dark">
+  <div class="section-row"><span class="idx">16</span><span class="label">Reel Frame · Dark</span><span class="rule"></span></div>
+  <div style="margin-top: 14px">
+    <div class="frame">
+      <div class="play"><svg viewBox="0 0 24 24" fill="currentColor"><polygon points="7,5 19,12 7,19"/></svg></div>
+      <div class="meta"><span>02:14</span><span class="sep"></span><span>Case Study</span><span class="sep"></span><span>Tech</span></div>
+      <div class="scrub"></div>
+    </div>
+  </div>
+</div></body></html>

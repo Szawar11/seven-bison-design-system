@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Buttons — Light</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; align-items: center; }
+  .btn { font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; padding: 12px 22px; border-radius: 4px; cursor: default; display: inline-flex; align-items: center; gap: 10px; line-height: 1; border: 0; }
+  .btn-primary { background: var(--sb-pink); color: #FFFFFF; }
+  .btn-primary.hover { background: #C0066F; }
+  .btn-primary.press { background: #9A0558; }
+  .btn-secondary { background: transparent; color: var(--sb-pink); border: 1px solid var(--sb-pink); }
+  .btn-tertiary { background: transparent; color: var(--sb-pink); padding: 12px 0; }
+  .btn-ghost { background: transparent; color: var(--sb-pink); border: 1px dashed var(--sb-pink); }
+  .lbl { font-family: var(--font-display); font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-top: 18px; }
+</style></head>
+<body><div class="card">
+  <div class="section-row"><span class="idx">11</span><span class="label">Buttons · Light</span><span class="rule"></span></div>
+  <div class="lbl">Primary · default / hover / press</div>
+  <div class="row">
+    <button class="btn btn-primary">Talk to our team</button>
+    <button class="btn btn-primary hover">Talk to our team</button>
+    <button class="btn btn-primary press">Talk to our team</button>
+  </div>
+  <div class="lbl">Secondary · Tertiary · Ghost</div>
+  <div class="row">
+    <button class="btn btn-secondary">See our process</button>
+    <button class="btn btn-tertiary">Review portfolio &nbsp;→</button>
+    <button class="btn btn-ghost">Add tag &nbsp;+</button>
+  </div>
+</div></body></html>

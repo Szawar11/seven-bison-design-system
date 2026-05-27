@@ -1,0 +1,21 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Logo — Monochrome</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+  .tile { display: flex; align-items: center; justify-content: center; padding: 36px 24px; }
+  .tile.light { background: var(--sb-off-white); }
+  .tile.dark { background: var(--sb-true-black); }
+  .tile img { width: 200px; height: auto; }
+  .cap { font-family: var(--font-display); font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-top: 16px; color: var(--text-tertiary); text-align: center; }
+  .cap.on-dark { color: rgba(255,255,255,0.5); }
+  .grid-row { display: grid; grid-template-columns: 1fr 1fr; }
+</style></head>
+<body><div class="card" style="padding:0">
+  <div class="grid-row">
+    <div class="tile light"><img src="../assets/logos/seven-bison-logo-black.png" alt="Black logo"></div>
+    <div class="tile dark"><img src="../assets/logos/seven-bison-logo-white.png" alt="White logo"></div>
+  </div>
+  <div class="grid-row" style="padding: 16px 32px 28px; background: var(--surface-canvas);">
+    <div class="cap">Monochrome on Light — logo-black.png</div>
+    <div class="cap" style="color: var(--text-tertiary)">Monochrome on Dark — logo-white.png</div>
+  </div>
+</div></body></html>

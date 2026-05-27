@@ -1,0 +1,349 @@
+/* ============================================================
+   Seven Bison — Colors & Type
+   ------------------------------------------------------------
+   Single source of truth for tokens used across both the Light
+   Corporate Mode (default) and the Dark Cinematic Mode (scoped).
+
+   Light is the default brand system.
+   Dark is the cinematic production layer (reels, case study
+   heroes, portfolio hero, motion graphics).
+
+   Pink is SIGNAL — never SURFACE.
+
+   ============================================================ */
+
+/* ---------- Web fonts (self-hosted) ---------- */
+/* Two brand families, loaded from /fonts as variable TTFs.
+   Variable fonts cover the full weight axis with one file.
+
+   * Raleway = primary display, headline, navigation, system
+   * Inter   = body, UI labels, captions, forms, tables, technical text
+
+   Both modes (Light Corporate, Dark Cinematic) use the SAME typography
+   system. Dark Mode does not introduce a separate typographic identity.
+
+   Ailerons (logo wordmark) is NOT loaded as a CSS font — the wordmark
+   is a fixed image asset under /assets/logos. */
+
+@font-face {
+  font-family: "Raleway";
+  src: url("fonts/RALEWAY-VARIABLEFONT_WGHT.TTF") format("truetype-variations"),
+       url("fonts/RALEWAY-VARIABLEFONT_WGHT.TTF") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Raleway";
+  src: url("fonts/RALEWAY-ITALIC-VARIABLEFONT_WGHT.TTF") format("truetype-variations"),
+       url("fonts/RALEWAY-ITALIC-VARIABLEFONT_WGHT.TTF") format("truetype");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Inter";
+  src: url("fonts/INTER-VARIABLEFONT_SLNT_WGHT.TTF") format("truetype-variations"),
+       url("fonts/INTER-VARIABLEFONT_SLNT_WGHT.TTF") format("truetype");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   1. RAW BRAND PALETTE
+   ============================================================ */
+
+:root {
+  /* — Signature — */
+  --sb-pink:            #E80787;   /* Final Seven Bison Pink token */
+  --sb-pink-hover:      #C0066F;
+  --sb-pink-press:      #9A0558;
+  /* TODO: The supplied PNG logo files may have been exported from older
+     pink values (#C01677 / #E01677 appear in the brandbook drafts).
+     Re-export the master PNG / SVG logo files to match #E80787 before
+     the next brand asset refresh. */
+
+  /* — Neutrals (Light) — */
+  --sb-off-white:       #F7F5F2;   /* Light canvas */
+  --sb-soft-gray:       #E8E8E8;
+  --sb-medium-gray:     #8A8A8A;
+  --sb-graphite:        #2A2A2A;
+  --sb-ink-black:       #111111;
+
+  /* — Neutrals (Dark) — */
+  --sb-true-black:      #000000;   /* Dark canvas */
+  --sb-near-black:      #0A0A0A;
+  --sb-charcoal:        #1A1A1A;
+  --sb-graphite-dark:   #222222;
+  --sb-white:           #FFFFFF;
+
+  /* — Logo file paths (single source of truth) —
+     PNG only for now. Do not redraw, regenerate, trace or reinterpret
+     the bison mark or wordmark. */
+  --sb-logo-pink:       url("assets/logos/seven-bison-logo-pink.png");
+  --sb-logo-black:      url("assets/logos/seven-bison-logo-black.png");
+  --sb-logo-white:      url("assets/logos/seven-bison-logo-white.png");
+}
+
+/* ============================================================
+   2. SEMANTIC TOKENS — LIGHT (default)
+   ============================================================ */
+
+:root,
+.sb-light,
+[data-sb-mode="light"] {
+  /* Surface */
+  --surface-canvas:        var(--sb-off-white);   /* page background */
+  --surface-raised:        #FFFFFF;               /* cards, callouts */
+  --surface-sunken:        #EEEAE4;               /* subtle wells */
+  --surface-inverse:       var(--sb-true-black);  /* reel container */
+
+  /* Text */
+  --text-primary:          var(--sb-ink-black);
+  --text-secondary:        var(--sb-graphite);
+  --text-tertiary:         var(--sb-medium-gray);
+  --text-inverse:          var(--sb-white);
+  --text-signal:           var(--sb-pink);
+
+  /* Borders & rules */
+  --border-hairline:       var(--sb-soft-gray);   /* default 1px rules */
+  --border-strong:         var(--sb-graphite);    /* heavy rules */
+  --border-signal:         var(--sb-pink);        /* underline accents */
+  --border-ghost:          var(--sb-pink);        /* dashed ghost btn */
+
+  /* Signal (pink) — never surface, never gradient */
+  --signal-fg:             var(--sb-pink);
+  --signal-bg:             var(--sb-pink);
+  --signal-fg-on:          #FFFFFF;
+
+  /* Focus ring */
+  --focus-ring:            var(--sb-pink);
+}
+
+/* ============================================================
+   3. SEMANTIC TOKENS — DARK (cinematic)
+   ============================================================ */
+
+.sb-dark,
+[data-sb-mode="dark"] {
+  --surface-canvas:        var(--sb-true-black);
+  --surface-raised:        var(--sb-near-black);
+  --surface-sunken:        #000000;
+  --surface-inverse:       var(--sb-off-white);
+
+  --text-primary:          var(--sb-white);
+  --text-secondary:        #D9D9D9;
+  --text-tertiary:         var(--sb-medium-gray);
+  --text-inverse:          var(--sb-ink-black);
+  --text-signal:           var(--sb-pink);
+
+  --border-hairline:       #1F1F1F;
+  --border-strong:         #2A2A2A;
+  --border-signal:         var(--sb-pink);
+  --border-ghost:          var(--sb-pink);
+
+  --signal-fg:             var(--sb-pink);
+  --signal-bg:             var(--sb-pink);
+  --signal-fg-on:          #FFFFFF;
+
+  --focus-ring:            var(--sb-pink);
+}
+
+/* ============================================================
+   4. TYPE TOKENS
+   ============================================================ */
+
+:root {
+  /* Families — same set in Light and Dark modes. */
+  --font-display: "Raleway", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --font-body:    "Inter",   ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  /* The wordmark "AILERONS" is reproduced via the logo image — do NOT
+     attempt to load it as a CSS font. */
+
+  /* Weights — keep narrow palette */
+  --fw-light:    300;
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+
+  /* Sizes (display + body, from brandbook page 05) */
+  --type-display-size:  72px;   /* H1 / Display */
+  --type-display-lh:    80px;   /* 1.11 */
+  --type-h2-size:       36px;   /* Section */
+  --type-h2-lh:         44px;
+  --type-h3-size:       24px;   /* Subsection */
+  --type-h3-lh:         32px;
+  --type-h4-size:       16px;   /* Label */
+  --type-h4-lh:         24px;
+
+  --type-body-lg-size:  16px;
+  --type-body-lg-lh:    26px;   /* ~1.625 */
+  --type-body-size:     14px;
+  --type-body-lh:       22px;   /* ~1.57 */
+  --type-body-sm-size:  12px;
+  --type-body-sm-lh:    18px;
+
+  /* Tracking */
+  --tracking-eyebrow:   0.14em;  /* uppercase eyebrows + nav */
+  --tracking-tight:    -0.01em;
+  --tracking-normal:    0;
+}
+
+/* ============================================================
+   5. SPACING / RADII / MOTION
+   ------------------------------------------------------------
+   Spacing scale follows the brandbook's "multiples of 4" rhythm
+   (4 / 8 / 12 / 16 / 24 / 32 / 40 / 48 / 64 / 80 / 96 / 128).
+   Radii are conservative — Seven Bison is a sharp brand;
+   default radius is 0. ============================================================ */
+
+:root {
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  40px;
+  --space-8:  48px;
+  --space-9:  64px;
+  --space-10: 80px;
+  --space-11: 96px;
+  --space-12: 128px;
+
+  --radius-0: 0px;       /* default */
+  --radius-1: 2px;       /* form inputs, tags */
+  --radius-2: 4px;       /* buttons, callouts */
+  --radius-pill: 999px;  /* rare — sector tags only */
+
+  --layout-margin:  80px;   /* desktop outer margin */
+  --layout-gutter:  24px;   /* 12-col gutter */
+  --layout-maxw:    1440px; /* desktop breakpoint */
+
+  /* Motion — purpose-led, smooth, eased. Never bouncy. */
+  --ease-standard:  cubic-bezier(0.2, 0.6, 0.2, 1);
+  --ease-exit:      cubic-bezier(0.4, 0, 1, 1);
+  --ease-enter:     cubic-bezier(0, 0, 0.2, 1);
+  --dur-fast:       120ms;
+  --dur-base:       200ms;
+  --dur-slow:       400ms;
+  --dur-cinematic:  800ms;  /* reels, hero crossfades */
+
+  /* SHADOWS ARE EXPLICITLY FORBIDDEN by the brand book.
+     If you need elevation, use a 1px hairline border or a sunken
+     surface (--surface-sunken). Do not add box-shadow. */
+}
+
+/* ============================================================
+   6. SEMANTIC TYPE CLASSES
+   ============================================================ */
+
+.sb-display,
+h1.sb-h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size:   var(--type-display-size);
+  line-height: var(--type-display-lh);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h2.sb-h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size:   var(--type-h2-size);
+  line-height: var(--type-h2-lh);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h3.sb-h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-medium);
+  font-size:   var(--type-h3-size);
+  line-height: var(--type-h3-lh);
+  color: var(--text-primary);
+  margin: 0;
+}
+
+h4.sb-h4,
+.sb-eyebrow {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size:   var(--type-h4-size);
+  line-height: var(--type-h4-lh);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.sb-body-lg, p.sb-body-lg {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size:   var(--type-body-lg-size);
+  line-height: var(--type-body-lg-lh);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.sb-body, p.sb-body {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size:   var(--type-body-size);
+  line-height: var(--type-body-lh);
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.sb-body-sm, p.sb-body-sm, small.sb-small {
+  font-family: var(--font-body);
+  font-weight: var(--fw-regular);
+  font-size:   var(--type-body-sm-size);
+  line-height: var(--type-body-sm-lh);
+  color: var(--text-tertiary);
+  margin: 0;
+}
+
+.sb-caps {
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-eyebrow);
+}
+
+/* Accent index numerals — pink "01 / 02 / 03" used as section markers */
+.sb-index {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  color: var(--sb-pink);
+  margin-right: var(--space-3);
+}
+
+/* ============================================================
+   7. UTILITY — mode containers
+   ============================================================ */
+
+.sb-light {
+  background: var(--surface-canvas);
+  color: var(--text-primary);
+}
+.sb-dark {
+  background: var(--surface-canvas);
+  color: var(--text-primary);
+}
+.sb-rule {
+  height: 1px;
+  background: var(--border-hairline);
+  border: 0;
+  margin: 0;
+}
+.sb-rule-strong {
+  height: 1px;
+  background: var(--border-strong);
+  border: 0;
+  margin: 0;
+}

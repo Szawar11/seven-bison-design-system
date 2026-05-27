@@ -1,0 +1,27 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Buttons — Dark</title><link rel="stylesheet" href="_preview.css">
+<style>
+  .row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; align-items: center; }
+  .btn { font-family: var(--font-body); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.14em; padding: 12px 22px; border-radius: 4px; cursor: default; display: inline-flex; align-items: center; gap: 10px; line-height: 1; border: 0; }
+  .btn-primary { background: var(--sb-pink); color: #FFFFFF; }
+  .btn-primary.hover { background: #C0066F; }
+  .btn-secondary { background: transparent; color: #FFFFFF; border: 1px solid #FFFFFF; }
+  .btn-secondary.hover { background: rgba(255,255,255,0.06); }
+  .btn-tertiary { background: transparent; color: #FFFFFF; padding: 12px 0; }
+  .btn-tertiary.hover { color: var(--sb-pink); }
+  .lbl { font-family: var(--font-display); font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.5); margin-top: 18px; }
+</style></head>
+<body><div class="card dark">
+  <div class="section-row"><span class="idx">12</span><span class="label">Buttons · Dark</span><span class="rule"></span></div>
+  <div class="lbl">Primary · default / hover</div>
+  <div class="row">
+    <button class="btn btn-primary">Watch the reel</button>
+    <button class="btn btn-primary hover">Watch the reel</button>
+  </div>
+  <div class="lbl">Secondary (white outline) · Tertiary · Tertiary hover</div>
+  <div class="row">
+    <button class="btn btn-secondary">See sector work</button>
+    <button class="btn btn-secondary hover">See sector work</button>
+    <button class="btn btn-tertiary">View case study &nbsp;→</button>
+    <button class="btn btn-tertiary hover">View case study &nbsp;→</button>
+  </div>
+</div></body></html>
