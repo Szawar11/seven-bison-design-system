@@ -1,6 +1,13 @@
 /* Global Header. Light by default, Dark variant when prop dark = true. */
 
 const Header = ({ current, navigate, dark = false }) => {
+  const [scrolled, setScrolled] = React.useState(false);
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
   const nav = [
     { id: "home", label: "Home" },
     { id: "sector", label: "Sectors" },
@@ -11,7 +18,7 @@ const Header = ({ current, navigate, dark = false }) => {
     ? "../../assets/logos/seven-bison-logo-pink.svg"
     : "../../assets/logos/seven-bison-logo-pink.svg";
   return (
-    <header className={`sb-header ${dark ? "dark" : ""}`}>
+    <header className={`sb-header ${dark ? "dark" : ""}${scrolled ? " is-scrolled" : ""}`}>
       <div className="sb-container sb-header-inner">
         <Logo src={logoSrc} onClick={() => navigate("home")} height={36}/>
         <nav className="sb-nav">

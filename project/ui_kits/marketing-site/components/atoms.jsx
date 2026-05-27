@@ -174,24 +174,27 @@ const SectorMark = ({ name }) => {
   return null;
 };
 
-/* Lucide-style line icons, hand-inlined to avoid external CDN for the kit's
-   small set. Stroke 1.5, pink by default via parent color. */
+/* Lucide icons — rendered via Lucide UMD CDN loaded in index.html.
+   Falls back to a hairline box placeholder if CDN is unavailable. */
 const Icon = ({ name, size = 20 }) => {
-  const p = { width: size, height: size, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 1.5, strokeLinecap: "round", strokeLinejoin: "round" };
-  const M = {
-    arrow:    <svg {...p}><path d="M5 12h14M13 6l6 6-6 6"/></svg>,
-    play:     <svg {...p}><polygon points="6 4 20 12 6 20 6 4" fill="currentColor"/></svg>,
-    check:    <svg {...p}><circle cx="12" cy="12" r="9"/><polyline points="8 12.5 11 15.5 16 9.5"/></svg>,
-    info:     <svg {...p}><circle cx="12" cy="12" r="9"/><line x1="12" y1="11" x2="12" y2="16"/><circle cx="12" cy="8" r="0.6" fill="currentColor"/></svg>,
-    speed:    <svg {...p}><path d="M3 14a9 9 0 1 1 18 0"/><path d="M12 14l4-4"/><circle cx="12" cy="14" r="1" fill="currentColor"/></svg>,
-    shield:   <svg {...p}><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6l8-3z"/></svg>,
-    target:   <svg {...p}><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1" fill="currentColor"/></svg>,
-    layers:   <svg {...p}><polygon points="12 3 22 8 12 13 2 8 12 3"/><polyline points="2 13 12 18 22 13"/></svg>,
-    handshake: <svg {...p}><path d="M3 12l5-5 4 4-2 2 5 5 6-6-7-7-5 0"/></svg>,
-    globe:    <svg {...p}><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>,
-    plus:     <svg {...p}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>,
-  };
-  return M[name] || null;
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el || !window.lucide) return;
+    el.innerHTML = '';
+    const i = document.createElement('i');
+    i.setAttribute('data-lucide', name);
+    el.appendChild(i);
+    window.lucide.createIcons({
+      nameAttr: 'data-lucide',
+      attrs: { width: size, height: size, 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' },
+    });
+  }, [name, size]);
+  return (
+    <span ref={ref} className="sb-icon"
+      style={{ display: 'inline-flex', width: size, height: size, flexShrink: 0 }}
+      aria-hidden="true"/>
+  );
 };
 
 const Logo = ({ src = "../../assets/logos/seven-bison-logo-pink.svg", onClick, height = 36 }) => (

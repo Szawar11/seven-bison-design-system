@@ -29,25 +29,57 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
   position: sticky; top: 0; z-index: 50;
   background: var(--surface-canvas);
   border-bottom: 1px solid var(--border-hairline);
+  transition: background var(--dur-base) var(--ease-standard),
+              backdrop-filter var(--dur-base) var(--ease-standard),
+              border-color var(--dur-base) var(--ease-standard);
+  will-change: backdrop-filter;
+}
+.sb-header.is-scrolled {
+  background: rgba(247, 245, 242, 0.82);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom-color: rgba(0, 0, 0, 0.08);
 }
 .sb-header.dark { background: #000; border-bottom-color: rgba(255,255,255,0.06); }
+.sb-header.dark.is-scrolled {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(20px) saturate(140%);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+}
 .sb-header-inner {
   display: flex; align-items: center; justify-content: space-between;
   height: 80px;
 }
-.sb-logo { height: 36px; display: block; cursor: pointer; }
+.sb-logo {
+  height: 36px; display: block; cursor: pointer;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+.sb-logo:hover { opacity: 0.8; }
 .sb-nav { display: flex; align-items: center; gap: 32px; }
 .sb-nav a {
   font-family: var(--font-body); font-weight: 600; font-size: 12px;
   text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap;
   color: var(--text-primary); text-decoration: none; cursor: pointer;
-  transition: color 200ms var(--ease-standard);
+  position: relative; padding-bottom: 2px;
+  transition: color var(--dur-base) var(--ease-standard);
 }
+.sb-nav a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1.5px; background: var(--sb-pink);
+  transition: width var(--dur-base) var(--ease-standard);
+}
+.sb-nav a:hover::after,
+.sb-nav a.is-active::after { width: 100%; }
 .sb-btn { white-space: nowrap; }
 .sb-nav a:hover { color: var(--sb-pink); }
 .sb-nav a.is-active { color: var(--sb-pink); }
 .sb-header.dark .sb-nav a { color: #FFFFFF; }
 .sb-header.dark .sb-nav a:hover { color: var(--sb-pink); }
+
+/* Icon wrapper — smooth color transition on hover context */
+.sb-icon { display: inline-flex; align-items: center; justify-content: center; }
+.sb-icon svg { transition: stroke var(--dur-base) var(--ease-standard); }
 
 /* ============================================================
    Buttons
@@ -340,3 +372,42 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
   95%  { opacity: 1; }
   100% { transform: translateX(320px); opacity: 0; }
 }
+
+/* ============================================================
+   Hover micro-interactions
+   ============================================================ */
+
+/* Capability cards — icon turns pink on card hover */
+.sb-card { transition: border-color var(--dur-base) var(--ease-standard); }
+.sb-card:hover .sb-icon svg { stroke: var(--sb-pink); }
+
+/* Reel frame — play ring pulses on hover */
+.sb-reel:hover .sb-play {
+  transform: translate(-50%, -50%) scale(1.06);
+}
+
+/* Primary button — tight scale press */
+.sb-btn--primary {
+  transition: background var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+.sb-btn--primary:hover  { transform: translateY(-1px); }
+.sb-btn--primary:active { transform: translateY(0) scale(0.98); }
+
+/* Secondary buttons — border brightens */
+.sb-btn--secondary,
+.sb-btn--secondary-dark {
+  transition: border-color var(--dur-fast) var(--ease-standard),
+              color var(--dur-fast) var(--ease-standard),
+              transform var(--dur-fast) var(--ease-standard);
+}
+.sb-btn--secondary:hover,
+.sb-btn--secondary-dark:hover { transform: translateY(-1px); }
+
+/* Text link — arrow slides right */
+.sb-btn--text { transition: color var(--dur-fast) var(--ease-standard); }
+.sb-btn--text span:last-child {
+  display: inline-block;
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.sb-btn--text:hover span:last-child { transform: translateX(4px); }
