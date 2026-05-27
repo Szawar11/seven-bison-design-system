@@ -30,6 +30,8 @@
     function App() {
       const [page, setPage] = useState("home");
 
+      const SECTORS = { tech: true, industry: true, health: true };
+
       // Header is Light by default; Dark for portfolio + case study which
       // open with a Dark hero (per DESIGN.md mode-selection table).
       const darkHeader = page === "portfolio" || page === "case";
@@ -41,14 +43,16 @@
       };
 
       let Body = Home;
-      if (page === "sector")    Body = Sector;
+      if (SECTORS[page])        Body = Sector;
       if (page === "portfolio") Body = Portfolio;
       if (page === "case")      Body = CaseStudy;
+
+      const sectorKey = SECTORS[page] ? page : undefined;
 
       return (
         <React.Fragment>
           <Header current={page} navigate={navigate} dark={darkHeader}/>
-          <Body navigate={navigate}/>
+          <Body navigate={navigate} sector={sectorKey}/>
           <Footer navigate={navigate}/>
         </React.Fragment>
       );

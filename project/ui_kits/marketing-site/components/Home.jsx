@@ -79,19 +79,19 @@ const Home = ({ navigate }) => (
         <span className="rule"></span>
       </div>
       <div className="sb-grid-3" style={{ marginTop: 32 }}>
-        <div className="sb-sector-card" onClick={() => navigate("sector")}>
+        <div className="sb-sector-card" onClick={() => navigate("tech")}>
           <div className="ic"><SectorMark name="tech"/></div>
           <h3>Tech</h3>
           <p>Cybersecurity, fintech, enterprise software, SaaS, AI/ML. Explain the architecture, sell the platform.</p>
           <div className="more">See tech work&nbsp;&nbsp;→</div>
         </div>
-        <div className="sb-sector-card" onClick={() => navigate("sector")}>
+        <div className="sb-sector-card" onClick={() => navigate("industry")}>
           <div className="ic"><SectorMark name="industry"/></div>
           <h3>Heavy Industry</h3>
           <p>Manufacturing, energy, infrastructure, logistics. Bring scale and operations into focus.</p>
           <div className="more">See industry work&nbsp;&nbsp;→</div>
         </div>
-        <div className="sb-sector-card" onClick={() => navigate("sector")}>
+        <div className="sb-sector-card" onClick={() => navigate("health")}>
           <div className="ic"><SectorMark name="health"/></div>
           <h3>Healthcare &amp; Pharma</h3>
           <p>Medtech, biotech, pharma, health systems. Communicate science with clarity and compliance.</p>

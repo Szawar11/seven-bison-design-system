@@ -10,9 +10,10 @@ const Header = ({ current, navigate, dark = false }) => {
 
   const nav = [
     { id: "home", label: "Home" },
-    { id: "sector", label: "Sectors" },
+    { id: "tech", label: "Tech" },
+    { id: "industry", label: "Heavy Industry" },
+    { id: "health", label: "Healthcare" },
     { id: "portfolio", label: "Portfolio" },
-    { id: "case", label: "Case study" },
   ];
   const logoSrc = dark
     ? "../../assets/logos/seven-bison-logo-pink.svg"

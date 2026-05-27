@@ -80,6 +80,10 @@ h3.sb-h3 {
 /* ============================================================
    Responsive grids
    ============================================================ */
+@media (max-width: 980px) {
+  /* Nav text links don't fit alongside logo + CTA — keep the CTA only */
+  .sb-nav a { display: none; }
+}
 @media (max-width: 900px) {
   .sb-grid-3 { grid-template-columns: 1fr 1fr !important; }
   .sb-steps  { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }

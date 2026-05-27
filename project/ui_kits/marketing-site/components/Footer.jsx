@@ -10,9 +10,9 @@ const Footer = ({ navigate }) => (
         </div>
         <div>
           <h4>Sectors</h4>
-          <a onClick={() => navigate("sector")}>Tech</a>
-          <a onClick={() => navigate("sector")}>Heavy Industry</a>
-          <a onClick={() => navigate("sector")}>Healthcare &amp; Pharma</a>
+          <a onClick={() => navigate("tech")}>Tech</a>
+          <a onClick={() => navigate("industry")}>Heavy Industry</a>
+          <a onClick={() => navigate("health")}>Healthcare &amp; Pharma</a>
         </div>
         <div>
           <h4>Studio</h4>
