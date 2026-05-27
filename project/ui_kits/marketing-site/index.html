@@ -98,7 +98,7 @@
 
     /* ── 2. CURSOR SPOTLIGHT on reels ──────────────────────── */
     function updateSpotlight(e) {
-      document.querySelectorAll('.sb-reel').forEach(function (el) {
+      document.querySelectorAll('.sb-reel, .sb-media').forEach(function (el) {
         var r = el.getBoundingClientRect();
         el.style.setProperty('--mouse-x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
         el.style.setProperty('--mouse-y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
@@ -106,7 +106,7 @@
     }
 
     /* ── 3. 2.5D TILT on cards & reels ─────────────────────── */
-    var TILT_SEL = '.sb-reel, .sb-sector-card, .sb-step, .sb-card';
+    var TILT_SEL = '.sb-reel, .sb-media, .sb-sector-card, .sb-step, .sb-card';
     function onTiltMove(e) {
       var el = e.target.closest(TILT_SEL);
       if (!el) return;

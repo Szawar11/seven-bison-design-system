@@ -94,12 +94,20 @@ const CaseStudy = ({ navigate }) => (
             press — gave the launch its long tail without a second shoot.
           </p>
 
+          <MediaFrame label="Production still" icon="image" dark={false}
+                      style={{ margin: "8px 0 32px" }}/>
+
           <h3>What changed</h3>
           <p>
             Pipeline lifted 3.4× quarter-over-quarter. The film became the default opener for
             every executive briefing. Northwind has since extended the engagement into a
             twelve-month creative retainer.
           </p>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16, marginTop: 8 }}>
+            <MediaFrame label="Key frame" icon="image" dark={false} ratio="4 / 3"/>
+            <MediaFrame label="Social cutdown" icon="gallery" dark={false} ratio="4 / 3"/>
+          </div>
         </div>
       </div>
     </section>

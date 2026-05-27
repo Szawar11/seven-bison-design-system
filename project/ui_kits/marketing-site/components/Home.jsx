@@ -163,7 +163,7 @@ const Home = ({ navigate }) => (
         </p>
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "flex-end" }}>
           <div className="sb-quote-attr">
-            <div className="av"></div>
+            <AvatarFrame size={48}/>
             <div>
               <div className="name">Mara Linde</div>
               <div className="role">VP Marketing · Northwind Industrial</div>

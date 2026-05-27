@@ -197,6 +197,9 @@ const _IC = {
   microscope: `<path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>`,
   trending:   `<polyline points="22 7 13.5 15.5 8.5 10.5 1 18"/><polyline points="16 7 22 7 22 13"/>`,
   building:   `<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>`,
+  image:      `<rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>`,
+  user:       `<path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>`,
+  gallery:    `<path d="M2 7h20"/><rect width="18" height="14" x="3" y="5" rx="2"/><path d="m7 15 2.5-3 2 2.5L16 10l3 5"/>`,
 };
 const Icon = ({ name, size = 20 }) => {
   const paths = _IC[name] || _IC.sparkles;
@@ -213,4 +216,32 @@ const Logo = ({ src = "../../assets/logos/seven-bison-logo-pink.svg", onClick, h
   <img src={src} alt="Seven Bison" className="sb-logo" style={{ height }} onClick={onClick}/>
 );
 
-Object.assign(window, { Button, SectionHeader, Tag, ReelFrame, SectorMark, Icon, Logo });
+/* MediaFrame — placeholder for an image / graphic / still that doesn't
+   exist yet. Same family as ReelFrame: framed surface, pink line-art icon,
+   uppercase meta label, film-frame corner ticks. Dark by default (sits in
+   reel-style contexts); light variant for light sections. */
+const MediaFrame = ({ label = "Image", icon = "image", dark = true, ratio = "16 / 9", style }) => (
+  <div className={`sb-media ${dark ? "sb-media--dark" : "sb-media--light"}`}
+       style={{ aspectRatio: ratio, ...style }}>
+    <svg className="sb-media-ticks" viewBox="0 0 160 90" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M8,18 L8,8 L18,8"/>
+      <path d="M142,8 L152,8 L152,18"/>
+      <path d="M8,72 L8,82 L18,82"/>
+      <path d="M142,82 L152,82 L152,72"/>
+    </svg>
+    <div className="sb-media-center">
+      <Icon name={icon} size={26}/>
+      <span className="sb-media-label">{label}</span>
+    </div>
+  </div>
+);
+
+/* AvatarFrame — circular portrait placeholder for a person photo
+   (testimonials, founder). Pink user glyph on a sunken surface. */
+const AvatarFrame = ({ size = 48 }) => (
+  <div className="sb-avatar" style={{ width: size, height: size }}>
+    <Icon name="user" size={Math.round(size * 0.5)}/>
+  </div>
+);
+
+Object.assign(window, { Button, SectionHeader, Tag, ReelFrame, MediaFrame, AvatarFrame, SectorMark, Icon, Logo });
