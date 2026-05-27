@@ -281,10 +281,18 @@
         mx = e.clientX; my = e.clientY;
         if (!shown) { shown = true; el.classList.add('on'); }
         dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
-        var t = e.target.closest('.sb-reel, .sb-media') ? 'play'
-              : e.target.closest('a, button, .sb-work, .sb-sector-card, [role="button"]') ? 'link' : '';
-        ring.setAttribute('data-mode', t);
-        ring.textContent = t === 'play' ? 'PLAY' : t === 'link' ? '→' : '';
+        if (e.target.closest('.sb-reel, .sb-media')) {
+          // Over video/media → keep the "PLAY" disc
+          el.classList.remove('hide');
+          ring.setAttribute('data-mode', 'play'); ring.textContent = 'PLAY';
+        } else if (e.target.closest('a, button, .sb-work, .sb-sector-card, .sb-pin-card, [role="button"]')) {
+          // Over a link → hide custom cursor, let the native pointer show
+          el.classList.add('hide');
+          ring.setAttribute('data-mode', ''); ring.textContent = '';
+        } else {
+          el.classList.remove('hide');
+          ring.setAttribute('data-mode', ''); ring.textContent = '';
+        }
       }, { passive: true });
       addEventListener('mouseleave', function () { el.classList.remove('on'); shown = false; });
       (function loop() {

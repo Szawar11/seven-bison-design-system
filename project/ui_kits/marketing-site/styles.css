@@ -787,6 +787,7 @@ h3.sb-h3 {
 /* ---- #6 Custom cursor (dot + lagging ring, morphs on hover) ---- */
 .sb-cursor { position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity 200ms var(--ease-standard); }
 .sb-cursor.on { opacity: 1; }
+.sb-cursor.hide { opacity: 0 !important; }
 .sb-cursor .dot {
   position: fixed; top: 0; left: 0; width: 6px; height: 6px; border-radius: 50%;
   background: var(--sb-pink); will-change: transform;
@@ -802,14 +803,15 @@ h3.sb-h3 {
   transition: width 200ms var(--ease-standard), height 200ms var(--ease-standard),
               background 200ms var(--ease-standard);
 }
-.sb-cursor .ring[data-mode="link"] { width: 44px; height: 44px; background: var(--sb-pink); font-size: 16px; }
 .sb-cursor .ring[data-mode="play"] { width: 72px; height: 72px; background: var(--sb-pink); }
-.sb-cursor .ring[data-mode="play"] ~ .dot,
-.sb-cursor .ring[data-mode="link"] ~ .dot { opacity: 0; }
-/* Hide native cursor only on fine-pointer devices; keep text caret in fields */
-body.cursor-custom, body.cursor-custom a, body.cursor-custom button,
-body.cursor-custom .sb-reel, body.cursor-custom .sb-media,
-body.cursor-custom .sb-work, body.cursor-custom .sb-sector-card { cursor: none; }
+.sb-cursor .ring[data-mode="play"] ~ .dot { opacity: 0; }
+/* Hide native cursor on fine-pointer devices, but show the normal pointer
+   over links/buttons (the custom cursor hides itself there). */
+body.cursor-custom { cursor: none; }
+body.cursor-custom .sb-reel, body.cursor-custom .sb-media { cursor: none; }
+body.cursor-custom a, body.cursor-custom button,
+body.cursor-custom .sb-work, body.cursor-custom .sb-sector-card,
+body.cursor-custom .sb-pin-card, body.cursor-custom [role="button"] { cursor: pointer; }
 body.cursor-custom input, body.cursor-custom textarea { cursor: text; }
 @media (prefers-reduced-motion: reduce) { .sb-cursor { display: none; } }
 @media (hover: none), (pointer: coarse) { .sb-cursor { display: none; } }
