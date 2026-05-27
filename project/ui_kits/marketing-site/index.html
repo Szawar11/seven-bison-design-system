@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=1280">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Seven Bison — Marketing Site UI Kit</title>
   <link rel="icon" type="image/svg+xml" href="../../assets/logos/seven-bison-logo-pink.svg">
   <link rel="icon" type="image/png" href="../../assets/logos/seven-bison-logo-pink.png">
@@ -58,15 +58,98 @@
   </script>
 
   <script>
-    /* Cursor-following spotlight on reel frames — updates CSS custom props */
-    window.addEventListener('mousemove', function(e) {
-      var reels = document.querySelectorAll('.sb-reel');
-      for (var i = 0; i < reels.length; i++) {
-        var r = reels[i].getBoundingClientRect();
-        reels[i].style.setProperty('--mouse-x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
-        reels[i].style.setProperty('--mouse-y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
-      }
-    }, { passive: true });
+  (function () {
+    /* ── 1. SCROLL ENTRANCE ANIMATIONS ─────────────────────── */
+    var ANIM_SELS = [
+      '.sb-eyebrow-row', '.sb-hero-left', '.sb-hero-right',
+      '.sb-card', '.sb-step', '.sb-work', '.sb-trust .logo',
+      '.sb-results .r', '.sb-quote', '.sb-quote-attr',
+      '.sb-cs-body p', '.sb-cs-body h3',
+    ];
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('is-visible');
+        io.unobserve(e.target);
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -48px 0px' });
+
+    var seen = new WeakSet();
+    function initAnims() {
+      ANIM_SELS.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          if (seen.has(el)) return;
+          seen.add(el);
+          var siblings = Array.from(el.parentElement.children).filter(function (c) {
+            return c !== el && ANIM_SELS.some(function (s) { try { return c.matches(s); } catch(e){ return false; } });
+          });
+          var idx = Array.from(el.parentElement.children).indexOf(el);
+          el.style.transitionDelay = Math.min(idx * 65, 350) + 'ms';
+          el.classList.add('anim-ready');
+          io.observe(el);
+        });
+      });
+    }
+
+    /* ── 2. CURSOR SPOTLIGHT on reels ──────────────────────── */
+    function updateSpotlight(e) {
+      document.querySelectorAll('.sb-reel').forEach(function (el) {
+        var r = el.getBoundingClientRect();
+        el.style.setProperty('--mouse-x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        el.style.setProperty('--mouse-y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      });
+    }
+
+    /* ── 3. 2.5D TILT on cards & reels ─────────────────────── */
+    var TILT_SEL = '.sb-reel, .sb-sector-card, .sb-step, .sb-card';
+    function onTiltMove(e) {
+      var el = e.target.closest(TILT_SEL);
+      if (!el) return;
+      var r = el.getBoundingClientRect();
+      var cx = ((e.clientX - r.left) / r.width - 0.5) * 2;
+      var cy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      el.style.transition = 'transform 80ms linear';
+      el.style.transform = 'perspective(700px) rotateX(' + (-cy * 3.5) + 'deg) rotateY(' + (cx * 3.5) + 'deg) scale(1.01)';
+    }
+    function onTiltLeave(e) {
+      var el = e.target.closest(TILT_SEL);
+      if (!el) return;
+      el.style.transition = 'transform 500ms var(--ease-standard)';
+      el.style.transform = '';
+    }
+
+    /* ── 4. HERO PARALLAX ───────────────────────────────────── */
+    var rafId;
+    function onScroll() {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(function () {
+        var y = window.scrollY;
+        var hero = document.querySelector('.sb-hero-right .sb-reel');
+        if (hero && window.innerWidth > 900) {
+          hero.style.transform = 'translateY(' + (y * 0.09).toFixed(1) + 'px)';
+        }
+      });
+    }
+
+    /* ── BOOT: wait for React to paint ─────────────────────── */
+    var timer = setInterval(function () {
+      if (!document.querySelector('.sb-eyebrow-row')) return;
+      clearInterval(timer);
+
+      initAnims();
+      window.addEventListener('mousemove', onTiltMove,    { passive: true });
+      window.addEventListener('mousemove', updateSpotlight, { passive: true });
+      window.addEventListener('scroll',   onScroll,      { passive: true });
+      document.addEventListener('mouseover', onTiltLeave, true);
+
+      /* Re-run animations on React page navigation */
+      new MutationObserver(function (muts) {
+        var changed = muts.some(function (m) { return m.addedNodes.length > 0; });
+        if (changed) { seen = new WeakSet(); setTimeout(initAnims, 60); }
+      }).observe(document.getElementById('app'), { childList: true, subtree: true });
+    }, 80);
+  })();
   </script>
 </body>
 </html>

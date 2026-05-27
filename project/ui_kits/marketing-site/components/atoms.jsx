@@ -174,26 +174,38 @@ const SectorMark = ({ name }) => {
   return null;
 };
 
-/* Lucide icons — rendered via Lucide UMD CDN loaded in index.html.
-   Falls back to a hairline box placeholder if CDN is unavailable. */
+/* Inline Lucide-matched icon paths — reliable, zero-CDN, 1.5px stroke. */
+const _IC = {
+  arrow:      `<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>`,
+  play:       `<polygon points="6 3 20 12 6 21 6 3" fill="currentColor"/>`,
+  check:      `<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>`,
+  info:       `<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>`,
+  speed:      `<path d="M3.34 19a10 10 0 1 1 17.32 0"/><path d="m12 14 4-4"/><circle cx="12" cy="14" r="1" fill="currentColor"/>`,
+  shield:     `<path d="M20 13c0 5-3.5 7.5-7.16 8.95a1 1 0 0 1-.67 0C8.5 20.5 5 18 5 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C15.51 3.81 18 5 20 5a1 1 0 0 1 1 1z"/>`,
+  target:     `<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>`,
+  layers:     `<path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/>`,
+  handshake:  `<path d="m11 17 2 2a1 1 0 1 0 3-3"/><path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"/><path d="m21 3 1 11h-1"/><path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"/><path d="M3 4h8"/>`,
+  globe:      `<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>`,
+  plus:       `<path d="M5 12h14"/><path d="M12 5v14"/>`,
+  film:       `<rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M17 3v18"/><path d="M3 7h4"/><path d="M3 12h18"/><path d="M3 17h4"/><path d="M17 7h4"/><path d="M17 17h4"/>`,
+  video:      `<path d="m22 8-6 4 6 4V8z"/><rect width="14" height="12" x="2" y="6" rx="2"/>`,
+  zap:        `<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>`,
+  activity:   `<path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"/>`,
+  clock:      `<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>`,
+  cpu:        `<rect width="16" height="16" x="4" y="4" rx="2"/><rect width="6" height="6" x="9" y="9" rx="1"/><path d="M15 2v2"/><path d="M15 20v2"/><path d="M2 15h2"/><path d="M2 9h2"/><path d="M20 15h2"/><path d="M20 9h2"/><path d="M9 2v2"/><path d="M9 20v2"/>`,
+  sparkles:   `<path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>`,
+  microscope: `<path d="M6 18h8"/><path d="M3 22h18"/><path d="M14 22a7 7 0 1 0 0-14h-1"/><path d="M9 14h2"/><path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/><path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>`,
+  trending:   `<polyline points="22 7 13.5 15.5 8.5 10.5 1 18"/><polyline points="16 7 22 7 22 13"/>`,
+  building:   `<rect width="16" height="20" x="4" y="2" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>`,
+};
 const Icon = ({ name, size = 20 }) => {
-  const ref = React.useRef(null);
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el || !window.lucide) return;
-    el.innerHTML = '';
-    const i = document.createElement('i');
-    i.setAttribute('data-lucide', name);
-    el.appendChild(i);
-    window.lucide.createIcons({
-      nameAttr: 'data-lucide',
-      attrs: { width: size, height: size, 'stroke-width': '1.5', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' },
-    });
-  }, [name, size]);
+  const paths = _IC[name] || _IC.sparkles;
   return (
-    <span ref={ref} className="sb-icon"
-      style={{ display: 'inline-flex', width: size, height: size, flexShrink: 0 }}
-      aria-hidden="true"/>
+    <svg className="sb-icon" width={size} height={size} viewBox="0 0 24 24"
+      fill="none" stroke="currentColor" strokeWidth="1.5"
+      strokeLinecap="round" strokeLinejoin="round"
+      aria-hidden="true"
+      dangerouslySetInnerHTML={{ __html: paths }}/>
   );
 };
 
