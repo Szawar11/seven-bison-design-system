@@ -24,6 +24,38 @@ const Portfolio = ({ navigate }) => (
       </div>
     </section>
 
+    {/* FEATURED FILMSTRIP — horizontal pinned cinema reel */}
+    <section className="sb-pin">
+      <div className="sb-pin-vp">
+        <div className="sb-pin-head sb-container">
+          <div className="sb-eyebrow-row">
+            <span className="idx">02</span>
+            <span className="lbl">Featured reel · scroll to pan</span>
+            <span className="rule"></span>
+          </div>
+        </div>
+        <div className="sb-pin-track">
+          {[
+            { t: "Q3 Launch Film",      m: "Northwind · 02:14", anim: "gears"    },
+            { t: "Identity Suite",      m: "Outpost24 · 01:48", anim: "circuit"  },
+            { t: "Clinical Story",      m: "Roche · 03:02",     anim: "pulse"    },
+            { t: "Platform Tour",       m: "Aether · 01:30",    anim: "scanline" },
+            { t: "Annual Report",       m: "Aramco · 04:10",    anim: "gears"    },
+            { t: "Series Reveal",       m: "R3 · 00:58",        anim: "circuit"  },
+            { t: "MOA Animation",       m: "Bayer · 02:00",     anim: "pulse"    },
+            { t: "Operations Film",     m: "Hilti · 03:36",     anim: "gears"    },
+            { t: "Founders Documentary", m: "Santen · 06:24",   anim: "waveform" },
+          ].map((w, i) => (
+            <div key={i} className="sb-pin-card" onClick={() => navigate("case")}>
+              <ReelFrame meta={[w.m.split(" · ")[1]]} anim={w.anim}/>
+              <h3 className="t">{w.t}</h3>
+              <div className="m">{w.m}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     {/* FILTER BAR — Light, clean edge from the dark hero above */}
     <section className="sb-container" style={{ paddingTop: 56, paddingBottom: 32 }}>
       <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center" }}>

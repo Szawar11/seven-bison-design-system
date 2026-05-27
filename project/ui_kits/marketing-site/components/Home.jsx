@@ -146,10 +146,53 @@ const Home = ({ navigate }) => (
       </div>
     </section>
 
+    {/* AI PIPELINE — scroll-scrubbed cinematic sequence */}
+    {(() => {
+      const STAGES = [
+        { icon: "image",    label: "Raw footage", desc: "Source clips, stills, and references — whatever you already have.", anim: null },
+        { icon: "film",     label: "Edit",        desc: "Structure and story. The cut takes shape, frame by frame.", anim: null },
+        { icon: "sparkles", label: "Grade",       desc: "Colour, look, and cinematic AI generation where it serves the story.", anim: null },
+        { icon: "activity", label: "Motion",      desc: "Type, graphics, and animation — the brand system in motion.", anim: "scanline" },
+        { icon: "zap",      label: "Final",       desc: "Launch-ready master, multi-format exports for every channel.", anim: "waveform" },
+      ];
+      return (
+        <section className="sb-scrub dark">
+          <div className="sb-scrub-vp">
+            <div className="sb-container sb-scrub-grid">
+              <div className="sb-scrub-stage-wrap">
+                {STAGES.map((s, i) => (
+                  <div className="sb-scrub-stage" data-i={i} data-title={s.label} data-desc={s.desc}
+                       key={i} style={{ opacity: i === 0 ? 1 : 0 }}>
+                    {s.anim
+                      ? <ReelFrame meta={[s.label]} anim={s.anim}/>
+                      : <div className={`sb-scrub-frame stage-${i}`}><Icon name={s.icon} size={40}/></div>}
+                  </div>
+                ))}
+              </div>
+              <div className="sb-scrub-info">
+                <div className="sb-eyebrow-row">
+                  <span className="idx">06</span>
+                  <span className="lbl" style={{ color: "#FFFFFF" }}>The AI pipeline</span>
+                  <span className="rule" style={{ background: "rgba(255,255,255,0.12)" }}></span>
+                </div>
+                <h2 className="sb-h2 sb-scrub-title" style={{ color: "#FFFFFF" }}>Raw footage</h2>
+                <p className="sb-scrub-desc">Source clips, stills, and references — whatever you already have.</p>
+                <ol className="sb-scrub-steps">
+                  {STAGES.map((s, i) => (
+                    <li key={i} data-i={i} className={i === 0 ? "active" : ""}>{s.label}</li>
+                  ))}
+                </ol>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    })()}
+
     {/* HOW WE WORK */}
     <section className="sb-container sb-section">
       <div className="sb-eyebrow-row">
-        <span className="idx">06</span>
+        <span className="idx">07</span>
         <span className="lbl">How we work</span>
         <span className="rule"></span>
       </div>
@@ -164,7 +207,7 @@ const Home = ({ navigate }) => (
     {/* TESTIMONIAL */}
     <section className="sb-container sb-section">
       <div className="sb-eyebrow-row">
-        <span className="idx">07</span>
+        <span className="idx">08</span>
         <span className="lbl">Testimonials</span>
         <span className="rule"></span>
       </div>

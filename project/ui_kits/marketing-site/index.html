@@ -181,6 +181,39 @@
           var max = document.documentElement.scrollHeight - window.innerHeight;
           progressEl.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
         }
+
+        /* #8 Horizontal pinned filmstrip — vertical scroll → horizontal pan */
+        var pin = document.querySelector('.sb-pin');
+        if (pin && window.innerWidth > 900) {
+          var track = pin.querySelector('.sb-pin-track');
+          var pr = pin.getBoundingClientRect();
+          var ptot = pin.offsetHeight - window.innerHeight;
+          var pp = Math.min(Math.max(-pr.top / (ptot || 1), 0), 1);
+          var maxX = track.scrollWidth - track.parentElement.clientWidth;
+          if (maxX > 0) track.style.transform = 'translateX(' + (-pp * maxX).toFixed(1) + 'px)';
+        }
+
+        /* #10 Scroll-scrubbed pipeline — cross-fade stages + caption */
+        var scrub = document.querySelector('.sb-scrub');
+        if (scrub) {
+          var sr = scrub.getBoundingClientRect();
+          var stot = scrub.offsetHeight - window.innerHeight;
+          var sp = Math.min(Math.max(-sr.top / (stot || 1), 0), 1);
+          var stages = scrub.querySelectorAll('.sb-scrub-stage');
+          var n = stages.length, af = sp * (n - 1), active = Math.round(af);
+          stages.forEach(function (st, i) {
+            st.style.opacity = Math.max(0, 1 - Math.abs(i - af)).toFixed(3);
+          });
+          scrub.querySelectorAll('.sb-scrub-steps li').forEach(function (li, i) {
+            li.classList.toggle('active', i === active);
+          });
+          var act = stages[active];
+          if (act) {
+            var tEl = scrub.querySelector('.sb-scrub-title'), dEl = scrub.querySelector('.sb-scrub-desc');
+            if (tEl) tEl.textContent = act.getAttribute('data-title');
+            if (dEl) dEl.textContent = act.getAttribute('data-desc');
+          }
+        }
       });
     }
 

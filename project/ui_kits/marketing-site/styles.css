@@ -854,3 +854,51 @@ body.cursor-custom input, body.cursor-custom textarea { cursor: text; }
 }
 .sb-ba-handle span::before { left: 8px; border-right: 6px solid #FFFFFF; transform: translateY(-50%); }
 .sb-ba-handle span::after  { right: 8px; border-left: 6px solid #FFFFFF; transform: translateY(-50%); }
+
+/* ---- #8 Horizontal pinned filmstrip ---- */
+.sb-pin { position: relative; height: 320vh; }
+.sb-pin-vp {
+  position: sticky; top: 0; height: 100vh; overflow: hidden;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.sb-pin-head { width: 100%; margin-bottom: 32px; }
+.sb-pin-track {
+  display: flex; gap: 24px; padding: 0 clamp(20px, 5.5vw, 80px);
+  will-change: transform;
+}
+.sb-pin-card { flex: 0 0 420px; max-width: 82vw; cursor: pointer; }
+.sb-pin-card .t { font-family: var(--font-display); font-weight: 600; font-size: 18px; margin: 14px 0 4px; color: var(--text-primary); transition: color var(--dur-base) var(--ease-standard); }
+.sb-pin-card:hover .t { color: var(--sb-pink); }
+.sb-pin-card .m { font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); }
+
+/* ---- #10 Scroll-scrubbed pipeline ---- */
+.sb-scrub { position: relative; height: 320vh; background: #000000; color: #FFFFFF; }
+.sb-scrub-vp { position: sticky; top: 0; height: 100vh; display: flex; align-items: center; }
+.sb-scrub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; width: 100%; }
+.sb-scrub-stage-wrap { position: relative; aspect-ratio: 16 / 9; }
+.sb-scrub-stage { position: absolute; inset: 0; }
+.sb-scrub-frame { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(255,255,255,0.08); }
+.sb-scrub-frame.stage-0 { background: #0A0A0A; color: var(--sb-medium-gray); }
+.sb-scrub-frame.stage-1 { background: #0D0D0D; color: #D9D9D9; }
+.sb-scrub-frame.stage-2 { background: #000000; color: var(--sb-pink); }
+.sb-scrub-title { min-height: 1.2em; }
+.sb-scrub-desc { color: #D9D9D9; margin-top: 16px; max-width: 40ch; font-family: var(--font-body); font-size: 16px; line-height: 1.6; }
+.sb-scrub-steps { list-style: none; margin: 32px 0 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+.sb-scrub-steps li { position: relative; padding-left: 30px; font-family: var(--font-body); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.4); transition: color var(--dur-base) var(--ease-standard); }
+.sb-scrub-steps li::before { content: ''; position: absolute; left: 0; top: 50%; transform: translateY(-50%); width: 16px; height: 1px; background: rgba(255,255,255,0.3); transition: width var(--dur-base) var(--ease-standard), background var(--dur-base) var(--ease-standard); }
+.sb-scrub-steps li.active { color: #FFFFFF; }
+.sb-scrub-steps li.active::before { width: 26px; background: var(--sb-pink); }
+
+/* Degrade both pinned effects on mobile + reduced-motion to plain layouts */
+@media (max-width: 900px), (prefers-reduced-motion: reduce) {
+  .sb-pin { height: auto !important; }
+  .sb-pin-vp { position: static; height: auto; overflow-x: auto; overflow-y: hidden; padding: 32px 0; }
+  .sb-pin-track { transform: none !important; }
+  .sb-pin-card { flex: 0 0 280px; }
+
+  .sb-scrub { height: auto !important; }
+  .sb-scrub-vp { position: static; height: auto; padding: 64px 0; }
+  .sb-scrub-grid { grid-template-columns: 1fr; gap: 32px; }
+  .sb-scrub-stage-wrap { aspect-ratio: auto; display: flex; flex-direction: column; gap: 16px; }
+  .sb-scrub-stage { position: relative; opacity: 1 !important; aspect-ratio: 16 / 9; }
+}
