@@ -11,17 +11,36 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Seven Bison — Premium B2B Video, Motion & Animation">
   <meta property="og:description" content="Industry-specific video craft and art, delivered at scale. AI-native production, human craft.">
-  <meta property="og:image" content="../../assets/logos/seven-bison-logo-pink.png">
+  <meta property="og:image" content="../../assets/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Seven Bison — Premium B2B Video, Motion & Animation">
   <meta name="twitter:description" content="Industry-specific video craft and art, delivered at scale.">
+  <meta name="twitter:image" content="../../assets/og.png">
   <link rel="icon" type="image/svg+xml" href="../../assets/logos/seven-bison-logo-pink.svg">
   <link rel="icon" type="image/png" href="../../assets/logos/seven-bison-logo-pink.png">
   <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Seven Bison",
+    "description": "Premium video, motion design and animation for B2B brands with complex, regulated, or hard-to-photograph subject matter. AI-native production, human craft.",
+    "url": "https://sevenbison.com",
+    "email": "hello@sevenbison.com",
+    "founder": { "@type": "Person", "name": "Szymon Wojewski" },
+    "address": { "@type": "PostalAddress", "addressLocality": "Gdańsk", "addressCountry": "PL" },
+    "knowsAbout": ["Video production", "Motion design", "Animation", "Cinematic AI generation", "Tech", "Heavy Industry", "Healthcare & Pharma"],
+    "slogan": "AI-native production. Human craft."
+  }
+  </script>
 </head>
 <body>
+  <div class="sb-bg-washes" aria-hidden="true"></div>
   <div class="sb-progress" aria-hidden="true"></div>
   <div id="app"></div>
+  <div class="sb-grain" aria-hidden="true"></div>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
@@ -187,6 +206,22 @@
       });
     }
 
+    /* ── 6b. VARIABLE-WEIGHT MORPH on section headings ──────── */
+    var morphIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('wght-in');
+        morphIO.unobserve(e.target);
+      });
+    }, { threshold: 0.35 });
+    function initMorph() {
+      document.querySelectorAll('h2.sb-h2').forEach(function (el) {
+        if (el._wght) return; el._wght = true;
+        el.classList.add('wght-morph');
+        morphIO.observe(el);
+      });
+    }
+
     /* ── 6. MAGNETIC primary CTA ─────────────────────────────── */
     function initMagnetic() {
       document.querySelectorAll('.sb-btn--primary').forEach(function (btn) {
@@ -220,6 +255,7 @@
       initAnims();
       initCounts();
       initMagnetic();
+      initMorph();
       window.addEventListener('mousemove', onTiltMove,    { passive: true });
       window.addEventListener('mousemove', updateSpotlight, { passive: true });
       window.addEventListener('scroll',   onScroll,      { passive: true });
@@ -229,7 +265,7 @@
       /* Re-run animations on React page navigation */
       new MutationObserver(function (muts) {
         var changed = muts.some(function (m) { return m.addedNodes.length > 0; });
-        if (changed) { seen = new WeakSet(); setTimeout(function () { initAnims(); initCounts(); initMagnetic(); }, 60); }
+        if (changed) { seen = new WeakSet(); setTimeout(function () { initAnims(); initCounts(); initMagnetic(); initMorph(); }, 60); }
       }).observe(document.getElementById('app'), { childList: true, subtree: true });
     }, 80);
   })();

@@ -73,6 +73,18 @@ const Home = ({ navigate }) => (
       </div>
     </section>
 
+    {/* CAPABILITIES TICKER — full-bleed scrolling band */}
+    {(() => {
+      const CAPS = ["Creative Storytelling","2D/3D Motion Design","Cinematic AI Generation","Short-Form Editing","Character Animation","VFX & Compositing","3D Modelling","Graphic Design","Brand-Safe","Enterprise-Ready"];
+      return (
+        <div className="sb-ticker" aria-hidden="true">
+          <div className="sb-ticker-track">
+            {CAPS.concat(CAPS).map((c, i) => <span key={i} className="item">{c}</span>)}
+          </div>
+        </div>
+      );
+    })()}
+
     {/* SECTOR CARDS */}
     <section className="sb-container sb-section">
       <div className="sb-eyebrow-row">
