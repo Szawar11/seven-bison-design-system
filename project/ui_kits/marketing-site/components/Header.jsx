@@ -8,8 +8,8 @@ const Header = ({ current, navigate, dark = false }) => {
     { id: "case", label: "Case study" },
   ];
   const logoSrc = dark
-    ? "../../assets/logos/seven-bison-logo-pink.png"
-    : "../../assets/logos/seven-bison-logo-pink.png";
+    ? "../../assets/logos/seven-bison-logo-pink.svg"
+    : "../../assets/logos/seven-bison-logo-pink.svg";
   return (
     <header className={`sb-header ${dark ? "dark" : ""}`}>
       <div className="sb-container sb-header-inner">

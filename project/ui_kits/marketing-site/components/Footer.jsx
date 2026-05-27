@@ -3,7 +3,7 @@ const Footer = ({ navigate }) => (
     <div className="sb-container">
       <div className="sb-footer-grid">
         <div>
-          <img src="../../assets/logos/seven-bison-logo-pink.png" alt="" style={{ height: 36, display: "block", marginBottom: 24 }}/>
+          <img src="../../assets/logos/seven-bison-logo-pink.svg" alt="" style={{ height: 36, display: "block", marginBottom: 24 }}/>
           <p className="sb-body" style={{ maxWidth: "32ch" }}>
             Premium video, motion design and animation for B2B brands in complex, regulated, and visually-challenged industries.
           </p>

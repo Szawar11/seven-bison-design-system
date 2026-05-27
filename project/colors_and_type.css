@@ -82,9 +82,9 @@
   /* — Logo file paths (single source of truth) —
      PNG only for now. Do not redraw, regenerate, trace or reinterpret
      the bison mark or wordmark. */
-  --sb-logo-pink:       url("assets/logos/seven-bison-logo-pink.png");
-  --sb-logo-black:      url("assets/logos/seven-bison-logo-black.png");
-  --sb-logo-white:      url("assets/logos/seven-bison-logo-white.png");
+  --sb-logo-pink:       url("assets/logos/seven-bison-logo-pink.svg");
+  --sb-logo-black:      url("assets/logos/seven-bison-logo-black.svg");
+  --sb-logo-white:      url("assets/logos/seven-bison-logo-white.svg");
 }
 
 /* ============================================================

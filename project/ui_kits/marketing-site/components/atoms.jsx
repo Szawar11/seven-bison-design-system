@@ -103,7 +103,7 @@ const Icon = ({ name, size = 20 }) => {
   return M[name] || null;
 };
 
-const Logo = ({ src = "../../assets/logos/seven-bison-logo-pink.png", onClick, height = 36 }) => (
+const Logo = ({ src = "../../assets/logos/seven-bison-logo-pink.svg", onClick, height = 36 }) => (
   <img src={src} alt="Seven Bison" className="sb-logo" style={{ height }} onClick={onClick}/>
 );
 

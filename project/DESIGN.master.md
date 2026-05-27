@@ -24,9 +24,9 @@ The logo is a **fixed PNG image asset**. Never redraw, trace, regenerate, recolo
 
 | File | Use |
 |---|---|
-| `assets/logos/seven-bison-logo-pink.png` | Primary, on light surfaces and as the brand-defining state on dark |
-| `assets/logos/seven-bison-logo-black.png` | Monochrome fallback on light surfaces |
-| `assets/logos/seven-bison-logo-white.png` | Dark surfaces, monochrome |
+| `assets/logos/seven-bison-logo-pink.svg` | Primary, on light surfaces and as the brand-defining state on dark |
+| `assets/logos/seven-bison-logo-black.svg` | Monochrome fallback on light surfaces |
+| `assets/logos/seven-bison-logo-white.svg` | Dark surfaces, monochrome |
 
 Rules:
 - **Clear space:** at least the height of the `S` in the wordmark on every side.
