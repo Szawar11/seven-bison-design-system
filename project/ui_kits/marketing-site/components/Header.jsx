@@ -11,10 +11,30 @@ const Header = ({ current, navigate, dark = false }) => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  const drawerRef = React.useRef(null);
+
   // Lock body scroll while the mobile drawer is open
   React.useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
+  }, [open]);
+
+  // A11y: Esc closes, focus moves into the drawer, Tab is trapped inside it
+  React.useEffect(() => {
+    if (!open || !drawerRef.current) return;
+    const node = drawerRef.current;
+    const items = node.querySelectorAll('a, button');
+    if (items.length) items[0].focus();
+    const onKey = (e) => {
+      if (e.key === 'Escape') { setOpen(false); return; }
+      if (e.key === 'Tab' && items.length) {
+        const first = items[0], last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
   const nav = [
@@ -59,10 +79,10 @@ const Header = ({ current, navigate, dark = false }) => {
       </div>
 
       {/* Mobile drawer */}
-      <div className={`sb-drawer ${open ? "is-open" : ""}`} onClick={() => setOpen(false)}>
-        <nav className="sb-drawer-inner" onClick={(e) => e.stopPropagation()}>
+      <div className={`sb-drawer ${open ? "is-open" : ""}`} aria-hidden={!open} onClick={() => setOpen(false)}>
+        <nav className="sb-drawer-inner" ref={drawerRef} onClick={(e) => e.stopPropagation()}>
           {nav.map(item => (
-            <a key={item.id}
+            <a key={item.id} tabIndex={open ? 0 : -1}
                className={current === item.id ? "is-active" : ""}
                onClick={() => go(item.id)}>
               {item.label}

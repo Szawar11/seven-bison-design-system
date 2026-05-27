@@ -94,8 +94,12 @@ const CaseStudy = ({ navigate }) => (
             press — gave the launch its long tail without a second shoot.
           </p>
 
-          <MediaFrame label="Production still" icon="image" dark={false}
-                      style={{ margin: "8px 0 32px" }}/>
+          <div style={{ margin: "8px 0 32px" }}>
+            <BeforeAfter beforeLabel="Source footage" afterLabel="AI-graded final"/>
+            <p className="sb-body-sm" style={{ marginTop: 10, color: "#8A8A8A" }}>
+              Drag to compare — raw capture vs the graded, AI-assisted final.
+            </p>
+          </div>
 
           <h3>What changed</h3>
           <p>

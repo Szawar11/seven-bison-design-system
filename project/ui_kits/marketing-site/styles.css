@@ -785,3 +785,72 @@ h3.sb-h3 {
   transition: font-variation-settings 0.7s var(--ease-standard);
 }
 .wght-morph.wght-in { font-variation-settings: 'wght' 640; }
+
+/* ---- #6 Custom cursor (dot + lagging ring, morphs on hover) ---- */
+.sb-cursor { position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity 200ms var(--ease-standard); }
+.sb-cursor.on { opacity: 1; }
+.sb-cursor .dot {
+  position: fixed; top: 0; left: 0; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--sb-pink); will-change: transform;
+}
+.sb-cursor .ring {
+  position: fixed; top: 0; left: 0;
+  width: 30px; height: 30px; border-radius: 50%;
+  border: 1px solid var(--sb-pink);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-body); font-weight: 600; font-size: 10px;
+  letter-spacing: 0.14em; color: #FFFFFF; white-space: nowrap;
+  will-change: transform;
+  transition: width 200ms var(--ease-standard), height 200ms var(--ease-standard),
+              background 200ms var(--ease-standard);
+}
+.sb-cursor .ring[data-mode="link"] { width: 44px; height: 44px; background: var(--sb-pink); font-size: 16px; }
+.sb-cursor .ring[data-mode="play"] { width: 72px; height: 72px; background: var(--sb-pink); }
+.sb-cursor .ring[data-mode="play"] ~ .dot,
+.sb-cursor .ring[data-mode="link"] ~ .dot { opacity: 0; }
+/* Hide native cursor only on fine-pointer devices; keep text caret in fields */
+body.cursor-custom, body.cursor-custom a, body.cursor-custom button,
+body.cursor-custom .sb-reel, body.cursor-custom .sb-media,
+body.cursor-custom .sb-work, body.cursor-custom .sb-sector-card { cursor: none; }
+body.cursor-custom input, body.cursor-custom textarea { cursor: text; }
+@media (prefers-reduced-motion: reduce) { .sb-cursor { display: none; } }
+@media (hover: none), (pointer: coarse) { .sb-cursor { display: none; } }
+
+/* ---- #9 Before / After comparison slider ---- */
+.sb-ba { position: relative; overflow: hidden; cursor: ew-resize; user-select: none; border: 1px solid var(--border-hairline); }
+.sb-ba-pane {
+  position: absolute; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--sb-pink);
+}
+.sb-ba-after  { background: #000000; }
+.sb-ba-after .sb-icon { color: var(--sb-pink); }
+.sb-ba-before {
+  background: var(--surface-sunken);
+  clip-path: inset(0 calc(100% - var(--pct)) 0 0);
+}
+.sb-ba-before .sb-icon { color: var(--sb-medium-gray); }
+.sb-ba-tag {
+  position: absolute; bottom: 16px; left: 16px;
+  font-family: var(--font-body); font-size: 10px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: var(--radius-1);
+}
+.sb-ba-after .sb-ba-tag  { right: 16px; left: auto; background: var(--sb-pink); color: #FFFFFF; }
+.sb-ba-before .sb-ba-tag { background: rgba(17,17,17,0.06); color: var(--text-secondary); }
+.sb-ba-handle {
+  position: absolute; top: 0; bottom: 0; left: var(--pct);
+  width: 2px; background: var(--sb-pink); transform: translateX(-50%);
+  pointer-events: none;
+}
+.sb-ba-handle span {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  width: 40px; height: 40px; border-radius: 50%;
+  background: var(--sb-pink); border: 2px solid #FFFFFF;
+}
+.sb-ba-handle span::before, .sb-ba-handle span::after {
+  content: ''; position: absolute; top: 50%; width: 0; height: 0;
+  border-block: 5px solid transparent;
+}
+.sb-ba-handle span::before { left: 8px; border-right: 6px solid #FFFFFF; transform: translateY(-50%); }
+.sb-ba-handle span::after  { right: 8px; border-left: 6px solid #FFFFFF; transform: translateY(-50%); }

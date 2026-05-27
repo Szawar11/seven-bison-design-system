@@ -40,6 +40,7 @@
   <div class="sb-bg-washes" aria-hidden="true"></div>
   <div class="sb-progress" aria-hidden="true"></div>
   <div id="app"></div>
+  <div class="sb-cursor" aria-hidden="true"><span class="ring"></span><span class="dot"></span></div>
   <div class="sb-grain" aria-hidden="true"></div>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -236,6 +237,30 @@
       });
     }
 
+    /* ── 6c. CUSTOM CURSOR — dot + lagging ring, morphs on hover ─ */
+    var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    function initCursor() {
+      var el = document.querySelector('.sb-cursor');
+      var ring = el.querySelector('.ring'), dot = el.querySelector('.dot');
+      var mx = innerWidth / 2, my = innerHeight / 2, rx = mx, ry = my, shown = false;
+      document.body.classList.add('cursor-custom');
+      addEventListener('mousemove', function (e) {
+        mx = e.clientX; my = e.clientY;
+        if (!shown) { shown = true; el.classList.add('on'); }
+        dot.style.transform = 'translate(' + mx + 'px,' + my + 'px) translate(-50%,-50%)';
+        var t = e.target.closest('.sb-reel, .sb-media') ? 'play'
+              : e.target.closest('a, button, .sb-work, .sb-sector-card, [role="button"]') ? 'link' : '';
+        ring.setAttribute('data-mode', t);
+        ring.textContent = t === 'play' ? 'PLAY' : t === 'link' ? '→' : '';
+      }, { passive: true });
+      addEventListener('mouseleave', function () { el.classList.remove('on'); shown = false; });
+      (function loop() {
+        rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+        ring.style.transform = 'translate(' + rx.toFixed(1) + 'px,' + ry.toFixed(1) + 'px) translate(-50%,-50%)';
+        requestAnimationFrame(loop);
+      })();
+    }
+
     /* Respect the OS "reduce motion" setting — skip all JS motion */
     var REDUCE = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -256,6 +281,7 @@
       initCounts();
       initMagnetic();
       initMorph();
+      if (finePointer) initCursor();
       window.addEventListener('mousemove', onTiltMove,    { passive: true });
       window.addEventListener('mousemove', updateSpotlight, { passive: true });
       window.addEventListener('scroll',   onScroll,      { passive: true });

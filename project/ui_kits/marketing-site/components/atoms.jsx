@@ -244,4 +244,36 @@ const AvatarFrame = ({ size = 48 }) => (
   </div>
 );
 
-Object.assign(window, { Button, SectionHeader, Tag, ReelFrame, MediaFrame, AvatarFrame, SectorMark, Icon, Logo });
+/* BeforeAfter — draggable comparison slider. Ideal for an AI studio:
+   "Source" footage vs the "AI-graded" final. Pointer + touch. */
+const BeforeAfter = ({ beforeLabel = "Source", afterLabel = "AI-graded", ratio = "16 / 9" }) => {
+  const ref = React.useRef(null);
+  const [pct, setPct] = React.useState(50);
+  const set = (clientX) => {
+    const r = ref.current.getBoundingClientRect();
+    setPct(Math.max(2, Math.min(98, ((clientX - r.left) / r.width) * 100)));
+  };
+  const onDown = (e) => {
+    set(e.clientX);
+    const move = (ev) => set(ev.clientX);
+    const up = () => { window.removeEventListener("pointermove", move); window.removeEventListener("pointerup", up); };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+  };
+  return (
+    <div className="sb-ba" ref={ref} onPointerDown={onDown}
+         style={{ aspectRatio: ratio, "--pct": pct + "%" }}>
+      <div className="sb-ba-pane sb-ba-after">
+        <Icon name="sparkles" size={26}/>
+        <span className="sb-ba-tag">{afterLabel}</span>
+      </div>
+      <div className="sb-ba-pane sb-ba-before">
+        <Icon name="image" size={26}/>
+        <span className="sb-ba-tag">{beforeLabel}</span>
+      </div>
+      <div className="sb-ba-handle"><span></span></div>
+    </div>
+  );
+};
+
+Object.assign(window, { Button, SectionHeader, Tag, ReelFrame, MediaFrame, AvatarFrame, BeforeAfter, SectorMark, Icon, Logo });
