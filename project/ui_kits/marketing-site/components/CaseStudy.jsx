@@ -20,7 +20,7 @@ const CaseStudy = ({ navigate }) => (
           three product modules, and twelve social cutdowns — without expanding the budget.
         </p>
         <div style={{ marginTop: 48, marginBottom: -96, position: "relative", zIndex: 1 }}>
-          <ReelFrame meta={["02:14", "Brand Film", "Heavy Industry"]} cool={false}/>
+          <ReelFrame meta={["02:14", "Brand Film", "Heavy Industry"]} anim="gears"/>
         </div>
       </div>
     </section>
@@ -113,12 +113,12 @@ const CaseStudy = ({ navigate }) => (
       </div>
       <div className="sb-grid-3" style={{ background: "#000", padding: 32, color: "#FFF" }}>
         {[
-          { t: "Forgeworks · Annual Report", m: "Heavy Industry · 04:10", cool: false },
-          { t: "RailCorp · Operations", m: "Heavy Industry · 03:36", cool: false },
-          { t: "Aether · Platform Tour", m: "Tech · 01:30", cool: true },
+          { t: "Forgeworks · Annual Report", m: "Heavy Industry · 04:10", anim: "gears"   },
+          { t: "RailCorp · Operations",     m: "Heavy Industry · 03:36", anim: "gears"   },
+          { t: "Aether · Platform Tour",    m: "Tech · 01:30",           anim: "circuit" },
         ].map((w, i) => (
           <div key={i} className="sb-work" onClick={() => navigate("case")}>
-            <ReelFrame meta={[w.m.split(" · ")[0]]} cool={w.cool}/>
+            <ReelFrame meta={[w.m.split(" · ")[0]]} anim={w.anim}/>
             <h3 className="t">{w.t}</h3>
             <div className="m">{w.m}</div>
           </div>

@@ -28,6 +28,7 @@ const Home = ({ navigate }) => (
         </div>
         <div className="sb-hero-right">
           <ReelFrame meta={["00:48", "Showreel 2026", "All sectors"]}
+                     anim="waveform"
                      onClick={() => navigate("portfolio")}/>
         </div>
       </div>
@@ -109,15 +110,15 @@ const Home = ({ navigate }) => (
         </div>
         <div className="sb-mosaic">
           {[
-            { t: "Northwind · Q3 Launch Film", m: "Heavy Industry · 02:14", cool: false },
-            { t: "CipherLab Identity Suite", m: "Tech · 01:48", cool: true },
-            { t: "HelioMed Clinical Story", m: "Healthcare · 03:02", cool: false },
-            { t: "Aether Platform Tour", m: "Tech · 01:30", cool: true },
-            { t: "Forgeworks Annual Report", m: "Heavy Industry · 04:10", cool: false },
-            { t: "Parallax Series Reveal", m: "Tech · 00:58", cool: true },
+            { t: "Northwind · Q3 Launch Film",  m: "Heavy Industry · 02:14", anim: "gears"    },
+            { t: "CipherLab Identity Suite",    m: "Tech · 01:48",           anim: "circuit"  },
+            { t: "HelioMed Clinical Story",     m: "Healthcare · 03:02",     anim: "pulse"    },
+            { t: "Aether Platform Tour",        m: "Tech · 01:30",           anim: "circuit"  },
+            { t: "Forgeworks Annual Report",    m: "Heavy Industry · 04:10", anim: "gears"    },
+            { t: "Parallax Series Reveal",      m: "Tech · 00:58",           anim: "scanline" },
           ].map((w, i) => (
             <div key={i} className="sb-work" onClick={() => navigate("case")}>
-              <ReelFrame meta={[w.m.split(" · ")[1]]} cool={w.cool}/>
+              <ReelFrame meta={[w.m.split(" · ")[1]]} anim={w.anim}/>
               <h3 className="t">{w.t}</h3>
               <div className="m">{w.m}</div>
             </div>

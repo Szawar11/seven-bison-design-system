@@ -19,7 +19,7 @@ const Portfolio = ({ navigate }) => (
           for partners in Tech, Heavy Industry, and Healthcare &amp; Pharma.
         </p>
         <div style={{ marginTop: 48 }}>
-          <ReelFrame meta={["02:48", "Showreel 2026", "All sectors"]} cool={true}/>
+          <ReelFrame meta={["02:48", "Showreel 2026", "All sectors"]} anim="scanline"/>
         </div>
       </div>
     </section>
@@ -42,18 +42,18 @@ const Portfolio = ({ navigate }) => (
     <section className="sb-container sb-section--tight">
       <div className="sb-grid-3">
         {[
-          { t: "Q3 Launch Film", m: "Northwind · Heavy Industry · 02:14", cool: false },
-          { t: "Identity Suite", m: "CipherLab · Tech · 01:48", cool: true },
-          { t: "Clinical Story", m: "HelioMed · Healthcare · 03:02", cool: false },
-          { t: "Platform Tour", m: "Aether · Tech · 01:30", cool: true },
-          { t: "Annual Report", m: "Forgeworks · Industry · 04:10", cool: false },
-          { t: "Series Reveal", m: "Parallax · Tech · 00:58", cool: true },
-          { t: "Compliance Animation", m: "Vesta Bio · Pharma · 02:00", cool: false },
-          { t: "Founders Documentary", m: "Stratoline · Tech · 06:24", cool: true },
-          { t: "Operations Walkthrough", m: "RailCorp · Industry · 03:36", cool: false },
+          { t: "Q3 Launch Film",         m: "Northwind · Heavy Industry · 02:14", anim: "gears"    },
+          { t: "Identity Suite",          m: "CipherLab · Tech · 01:48",          anim: "circuit"  },
+          { t: "Clinical Story",          m: "HelioMed · Healthcare · 03:02",      anim: "pulse"    },
+          { t: "Platform Tour",           m: "Aether · Tech · 01:30",             anim: "circuit"  },
+          { t: "Annual Report",           m: "Forgeworks · Industry · 04:10",     anim: "gears"    },
+          { t: "Series Reveal",           m: "Parallax · Tech · 00:58",           anim: "scanline" },
+          { t: "Compliance Animation",    m: "Vesta Bio · Pharma · 02:00",        anim: "pulse"    },
+          { t: "Founders Documentary",    m: "Stratoline · Tech · 06:24",         anim: "waveform" },
+          { t: "Operations Walkthrough",  m: "RailCorp · Industry · 03:36",       anim: "gears"    },
         ].map((w, i) => (
           <div key={i} className="sb-work" onClick={() => navigate("case")} style={{ marginBottom: 24 }}>
-            <ReelFrame meta={[w.m.split(" · ")[1]]} cool={w.cool}/>
+            <ReelFrame meta={[w.m.split(" · ")[1]]} anim={w.anim}/>
             <h3 className="t" style={{ color: "#111111", marginTop: 16 }}>{w.t}</h3>
             <div className="m" style={{ color: "#8A8A8A" }}>{w.m}</div>
           </div>

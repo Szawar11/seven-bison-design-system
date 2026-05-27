@@ -137,15 +137,9 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
   overflow: hidden;
   cursor: pointer;
 }
-.sb-reel--still {
-  background:
-    radial-gradient(ellipse at 30% 40%, #1a1a1a 0%, #050505 70%),
-    linear-gradient(180deg, #0a0a0a 0%, #000 100%);
-}
+.sb-reel--still,
 .sb-reel--still-cool {
-  background:
-    radial-gradient(ellipse at 60% 50%, #1a2230 0%, #050810 70%),
-    linear-gradient(180deg, #0a0d12 0%, #000 100%);
+  background: #000000;
 }
 .sb-reel::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 96px;
@@ -296,3 +290,53 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
 .sb-sector-card h3 { font-family: var(--font-display); font-weight: 600; font-size: 22px; color: var(--text-primary); margin: 0 0 8px; }
 .sb-sector-card p { font-family: var(--font-body); font-size: 13px; line-height: 20px; color: var(--text-secondary); margin: 0 0 24px; }
 .sb-sector-card .more { font-family: var(--font-body); font-weight: 600; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--sb-pink); }
+
+/* ============================================================
+   Reel animations — pure CSS keyframes
+   ============================================================ */
+
+/* Shared SVG layer */
+.sb-reel-anim {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  pointer-events: none; z-index: 0;
+}
+
+/* 1 — Waveform bars */
+@keyframes sb-wave {
+  0%, 100% { transform: scaleY(1);   opacity: 0.55; }
+  50%       { transform: scaleY(1.8); opacity: 1; }
+}
+
+/* 2 — Circuit trace draw */
+@keyframes sb-circ-draw {
+  0%   { stroke-dashoffset: 420; opacity: 1; }
+  80%  { stroke-dashoffset: 0;   opacity: 1; }
+  90%  { stroke-dashoffset: 0;   opacity: 0; }
+  100% { stroke-dashoffset: 420; opacity: 0; }
+}
+@keyframes sb-node-pulse {
+  0%, 100% { r: 4;  opacity: 0.4; }
+  50%       { r: 7;  opacity: 1; }
+}
+
+/* 3 — Gear rotation */
+@keyframes sb-gear-cw  { to { transform: rotate(360deg);  } }
+@keyframes sb-gear-ccw { to { transform: rotate(-360deg); } }
+
+/* 4 — ECG pulse draw */
+@keyframes sb-pulse-draw {
+  0%   { stroke-dashoffset: 590; opacity: 0; }
+  8%   { opacity: 1; }
+  75%  { stroke-dashoffset: 0;   opacity: 1; }
+  88%  { stroke-dashoffset: 0;   opacity: 0; }
+  100% { stroke-dashoffset: 590; opacity: 0; }
+}
+
+/* 5 — Scanline sweep */
+@keyframes sb-scan {
+  0%   { transform: translateX(0px);   opacity: 0; }
+  5%   { opacity: 1; }
+  95%  { opacity: 1; }
+  100% { transform: translateX(320px); opacity: 0; }
+}

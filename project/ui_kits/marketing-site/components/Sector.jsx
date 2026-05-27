@@ -29,7 +29,8 @@ const Sector = ({ navigate }) => (
           </div>
         </div>
         <div className="sb-hero-right">
-          <ReelFrame meta={["01:48", "Sector Reel", "Tech"]} cool={true}
+          <ReelFrame meta={["01:48", "Sector Reel", "Tech"]}
+                     anim="circuit"
                      onClick={() => navigate("portfolio")}/>
         </div>
       </div>
@@ -89,12 +90,12 @@ const Sector = ({ navigate }) => (
         </div>
         <div className="sb-mosaic">
           {[
-            { t: "Identity Suite", m: "CipherLab · Cybersecurity · 01:48" },
-            { t: "Platform Tour", m: "Aether · SaaS · 01:30" },
-            { t: "Series Reveal", m: "Parallax · Fintech · 00:58" },
+            { t: "Identity Suite", m: "CipherLab · Cybersecurity · 01:48", anim: "circuit"  },
+            { t: "Platform Tour",  m: "Aether · SaaS · 01:30",           anim: "scanline" },
+            { t: "Series Reveal",  m: "Parallax · Fintech · 00:58",       anim: "circuit"  },
           ].map((w, i) => (
             <div key={i} className="sb-work" onClick={() => navigate("case")}>
-              <ReelFrame meta={[w.m.split(" · ")[1]]} cool={true}/>
+              <ReelFrame meta={[w.m.split(" · ")[1]]} anim={w.anim}/>
               <h3 className="t">{w.t}</h3>
               <div className="m">{w.m}</div>
             </div>
