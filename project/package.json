@@ -1,0 +1,10 @@
+{
+  "name": "seven-bison-design-system",
+  "version": "1.0.0",
+  "description": "Seven Bison Design System — marketing site prototype",
+  "private": true,
+  "scripts": {
+    "start": "npx http-server . -p 8080 --cors -o /ui_kits/marketing-site/ -c-1",
+    "serve": "python3 -m http.server 8080"
+  }
+}
