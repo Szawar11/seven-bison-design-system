@@ -56,5 +56,17 @@
 
     ReactDOM.createRoot(document.getElementById("app")).render(<App/>);
   </script>
+
+  <script>
+    /* Cursor-following spotlight on reel frames — updates CSS custom props */
+    window.addEventListener('mousemove', function(e) {
+      var reels = document.querySelectorAll('.sb-reel');
+      for (var i = 0; i < reels.length; i++) {
+        var r = reels[i].getBoundingClientRect();
+        reels[i].style.setProperty('--mouse-x', ((e.clientX - r.left) / r.width * 100).toFixed(1) + '%');
+        reels[i].style.setProperty('--mouse-y', ((e.clientY - r.top) / r.height * 100).toFixed(1) + '%');
+      }
+    }, { passive: true });
+  </script>
 </body>
 </html>

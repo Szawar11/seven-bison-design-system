@@ -56,26 +56,21 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
   transition: opacity var(--dur-base) var(--ease-standard);
 }
 .sb-logo:hover { opacity: 0.8; }
-.sb-nav { display: flex; align-items: center; gap: 32px; }
+.sb-nav { display: flex; align-items: center; gap: 4px; }
 .sb-nav a {
   font-family: var(--font-body); font-weight: 600; font-size: 12px;
   text-transform: uppercase; letter-spacing: 0.14em; white-space: nowrap;
   color: var(--text-primary); text-decoration: none; cursor: pointer;
-  position: relative; padding-bottom: 2px;
-  transition: color var(--dur-base) var(--ease-standard);
+  padding: 7px 11px; border-radius: var(--radius-2);
+  transition: color var(--dur-base) var(--ease-standard),
+              background var(--dur-base) var(--ease-standard);
 }
-.sb-nav a::after {
-  content: ''; position: absolute; bottom: -3px; left: 0;
-  width: 0; height: 1.5px; background: var(--sb-pink);
-  transition: width var(--dur-base) var(--ease-standard);
-}
-.sb-nav a:hover::after,
-.sb-nav a.is-active::after { width: 100%; }
+.sb-nav a:hover { color: var(--sb-pink); background: rgba(17,17,17,0.045); }
+.sb-nav a.is-active { color: var(--sb-pink); background: rgba(232,7,135,0.07); }
 .sb-btn { white-space: nowrap; }
-.sb-nav a:hover { color: var(--sb-pink); }
-.sb-nav a.is-active { color: var(--sb-pink); }
 .sb-header.dark .sb-nav a { color: #FFFFFF; }
-.sb-header.dark .sb-nav a:hover { color: var(--sb-pink); }
+.sb-header.dark .sb-nav a:hover { color: var(--sb-pink); background: rgba(255,255,255,0.08); }
+.sb-header.dark .sb-nav a.is-active { color: var(--sb-pink); background: rgba(232,7,135,0.12); }
 
 /* Icon wrapper — smooth color transition on hover context */
 .sb-icon { display: inline-flex; align-items: center; justify-content: center; }
@@ -146,12 +141,18 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
    Cards & grids
    ============================================================ */
 .sb-card {
-  background: #FFFFFF;
-  border: 1px solid var(--border-hairline);
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(12px) saturate(155%);
+  -webkit-backdrop-filter: blur(12px) saturate(155%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
   padding: 32px;
-  transition: border-color 200ms var(--ease-standard);
+  transition: border-color var(--dur-base) var(--ease-standard),
+              background var(--dur-base) var(--ease-standard);
 }
-.sb-card:hover { border-color: var(--sb-pink); }
+.sb-card:hover {
+  border-color: rgba(232,7,135,0.35);
+  background: rgba(255, 255, 255, 0.88);
+}
 .sb-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
 .sb-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
 .sb-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
@@ -168,7 +169,17 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
   border: 1px solid rgba(255,255,255,0.06);
   overflow: hidden;
   cursor: pointer;
+  --mouse-x: 50%; --mouse-y: 50%;
 }
+/* Cursor-following pink spotlight (CSS custom props updated by JS) */
+.sb-reel::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y),
+    rgba(232,7,135,0.12) 0%, transparent 55%);
+  opacity: 0; z-index: 1; pointer-events: none;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+.sb-reel:hover::before { opacity: 1; }
 .sb-reel--still,
 .sb-reel--still-cool {
   background: #000000;
@@ -242,8 +253,21 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
 /* ============================================================
    Steps / how-we-work
    ============================================================ */
-.sb-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
-.sb-step { padding: 24px 24px 24px 0; border-top: 1px solid var(--border-hairline); }
+.sb-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.sb-step {
+  padding: 28px 24px;
+  background: rgba(255, 255, 255, 0.68);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  border-top: 2px solid var(--border-hairline);
+  transition: border-top-color var(--dur-base) var(--ease-standard),
+              background var(--dur-base) var(--ease-standard);
+}
+.sb-step:hover {
+  border-top-color: var(--sb-pink);
+  background: rgba(255, 255, 255, 0.86);
+}
 .sb-step .n { font-family: var(--font-body); font-weight: 600; font-size: 14px; color: var(--sb-pink); margin-bottom: 12px; }
 .sb-step .t { font-family: var(--font-display); font-weight: 600; font-size: 18px; color: var(--text-primary); margin-bottom: 8px; }
 .sb-step .d { font-family: var(--font-body); font-size: 13px; line-height: 20px; color: var(--text-secondary); }
@@ -377,8 +401,11 @@ html, body { margin: 0; padding: 0; background: var(--surface-canvas); color: va
    Hover micro-interactions
    ============================================================ */
 
-/* Capability cards — icon turns pink on card hover */
-.sb-card { transition: border-color var(--dur-base) var(--ease-standard); }
+/* Capability cards — icon turns pink + lifts on card hover */
+.sb-card .sb-icon {
+  transition: transform var(--dur-base) var(--ease-standard);
+}
+.sb-card:hover .sb-icon { transform: scale(1.14); }
 .sb-card:hover .sb-icon svg { stroke: var(--sb-pink); }
 
 /* Reel frame — play ring pulses on hover */
