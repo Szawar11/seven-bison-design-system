@@ -34,21 +34,23 @@ const Home = ({ navigate }) => (
       </div>
     </section>
 
-    {/* TRUST STRIP */}
+    {/* TRUST STRIP — infinite marquee */}
     <section className="sb-container" style={{ paddingBottom: 64 }}>
       <div className="sb-eyebrow-row">
         <span className="idx">02</span>
         <span className="lbl">Trusted by enterprise teams in regulated industries</span>
         <span className="rule"></span>
       </div>
-      <div className="sb-trust">
-        <div className="logo">NORTHWIND</div>
-        <div className="logo">AETHER</div>
-        <div className="logo">FORGEWORKS</div>
-        <div className="logo">HELIOMED</div>
-        <div className="logo">CIPHERLAB</div>
-        <div className="logo">PARALLAX</div>
-      </div>
+      {(() => {
+        const LOGOS = ["ARAMCO","HILTI","ROCHE","BAYER","PFIZER","DAIKIN","AWS","OUTPOST24","ALACRITI","SANTEN","R3","KPMG"];
+        return (
+          <div className="sb-marquee">
+            <div className="sb-marquee-track">
+              {LOGOS.concat(LOGOS).map((l, i) => <div key={i} className="logo">{l}</div>)}
+            </div>
+          </div>
+        );
+      })()}
     </section>
 
     {/* END-TO-END PARTNER BLOCK */}

@@ -3,12 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Seven Bison — Marketing Site UI Kit</title>
+  <title>Seven Bison — Premium B2B Video, Motion & Animation</title>
+  <meta name="description" content="Premium video, motion design and animation for B2B brands with complex, regulated, or hard-to-photograph subject matter. AI-native production, human craft. Tech, Heavy Industry, Healthcare &amp; Pharma.">
+  <meta name="theme-color" content="#E80787">
+  <meta name="color-scheme" content="light">
+  <!-- Open Graph / social -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Seven Bison — Premium B2B Video, Motion & Animation">
+  <meta property="og:description" content="Industry-specific video craft and art, delivered at scale. AI-native production, human craft.">
+  <meta property="og:image" content="../../assets/logos/seven-bison-logo-pink.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Seven Bison — Premium B2B Video, Motion & Animation">
+  <meta name="twitter:description" content="Industry-specific video craft and art, delivered at scale.">
   <link rel="icon" type="image/svg+xml" href="../../assets/logos/seven-bison-logo-pink.svg">
   <link rel="icon" type="image/png" href="../../assets/logos/seven-bison-logo-pink.png">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="sb-progress" aria-hidden="true"></div>
   <div id="app"></div>
 
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
@@ -23,6 +35,9 @@
   <script type="text/babel" src="components/Sector.jsx"></script>
   <script type="text/babel" src="components/Portfolio.jsx"></script>
   <script type="text/babel" src="components/CaseStudy.jsx"></script>
+  <script type="text/babel" src="components/StudioAccess.jsx"></script>
+  <script type="text/babel" src="components/About.jsx"></script>
+  <script type="text/babel" src="components/Contact.jsx"></script>
 
   <script type="text/babel">
     const { useState, useEffect } = React;
@@ -37,15 +52,19 @@
       const darkHeader = page === "portfolio" || page === "case";
 
       const navigate = (p) => {
-        if (p === "contact") return; // contact page not built; CTA no-op
-        setPage(p);
-        window.scrollTo(0, 0);
+        const go = () => { setPage(p); window.scrollTo(0, 0); };
+        // Native cross-fade between pages (brand motion §6) where supported
+        if (document.startViewTransition) document.startViewTransition(go);
+        else go();
       };
 
       let Body = Home;
-      if (SECTORS[page])        Body = Sector;
-      if (page === "portfolio") Body = Portfolio;
-      if (page === "case")      Body = CaseStudy;
+      if (SECTORS[page])             Body = Sector;
+      else if (page === "portfolio") Body = Portfolio;
+      else if (page === "case")      Body = CaseStudy;
+      else if (page === "studio")    Body = StudioAccess;
+      else if (page === "about")     Body = About;
+      else if (page === "contact")   Body = Contact;
 
       const sectorKey = SECTORS[page] ? page : undefined;
 
@@ -65,7 +84,7 @@
   (function () {
     /* ── 1. SCROLL ENTRANCE ANIMATIONS ─────────────────────── */
     var ANIM_SELS = [
-      '.sb-eyebrow-row', '.sb-hero-left', '.sb-hero-right',
+      '.sb-eyebrow-row',
       '.sb-card', '.sb-step', '.sb-work', '.sb-trust .logo',
       '.sb-results .r', '.sb-quote', '.sb-quote-attr',
       '.sb-cs-body p', '.sb-cs-body h3',
@@ -84,6 +103,8 @@
       ANIM_SELS.forEach(function (sel) {
         document.querySelectorAll(sel).forEach(function (el) {
           if (seen.has(el)) return;
+          /* Hero children get their own CSS load reveal — skip here */
+          if (el.closest('.sb-hero-left, .sb-hero-right')) return;
           seen.add(el);
           var siblings = Array.from(el.parentElement.children).filter(function (c) {
             return c !== el && ANIM_SELS.some(function (s) { try { return c.matches(s); } catch(e){ return false; } });
@@ -123,7 +144,9 @@
       el.style.transform = '';
     }
 
-    /* ── 4. HERO PARALLAX ───────────────────────────────────── */
+    /* ── 4. HERO PARALLAX + SCROLL PROGRESS ─────────────────── */
+    var hasScrollTimeline = window.CSS && CSS.supports && CSS.supports('animation-timeline: scroll()');
+    var progressEl = document.querySelector('.sb-progress');
     var rafId;
     function onScroll() {
       cancelAnimationFrame(rafId);
@@ -133,6 +156,48 @@
         if (hero && window.innerWidth > 900) {
           hero.style.transform = 'translateY(' + (y * 0.09).toFixed(1) + 'px)';
         }
+        /* Progress bar fallback when CSS scroll-timeline is unavailable */
+        if (progressEl && !hasScrollTimeline) {
+          var max = document.documentElement.scrollHeight - window.innerHeight;
+          progressEl.style.setProperty('--progress', max > 0 ? (y / max).toFixed(4) : 0);
+        }
+      });
+    }
+
+    /* ── 5. COUNT-UP on [data-count] stats ──────────────────── */
+    var countIO = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        countIO.unobserve(e.target);
+        var el = e.target, raw = el.getAttribute('data-count');
+        var dec = (raw.split('.')[1] || '').length, target = parseFloat(raw);
+        var dur = 1100, t0 = performance.now();
+        (function tick(now) {
+          var p = Math.min((now - t0) / dur, 1);
+          var eased = 1 - Math.pow(1 - p, 3);
+          el.textContent = (target * eased).toFixed(dec);
+          if (p < 1) requestAnimationFrame(tick);
+          else el.textContent = target.toFixed(dec);
+        })(t0);
+      });
+    }, { threshold: 0.6 });
+    function initCounts() {
+      document.querySelectorAll('[data-count]').forEach(function (el) {
+        if (el._cnt) return; el._cnt = true; countIO.observe(el);
+      });
+    }
+
+    /* ── 6. MAGNETIC primary CTA ─────────────────────────────── */
+    function initMagnetic() {
+      document.querySelectorAll('.sb-btn--primary').forEach(function (btn) {
+        if (btn._mag) return; btn._mag = true;
+        btn.addEventListener('mousemove', function (e) {
+          var r = btn.getBoundingClientRect();
+          var mx = e.clientX - (r.left + r.width / 2);
+          var my = e.clientY - (r.top + r.height / 2);
+          btn.style.transform = 'translate(' + (mx * 0.25).toFixed(1) + 'px,' + (my * 0.4).toFixed(1) + 'px)';
+        });
+        btn.addEventListener('mouseleave', function () { btn.style.transform = ''; });
       });
     }
 
@@ -144,18 +209,27 @@
       if (!document.querySelector('.sb-eyebrow-row')) return;
       clearInterval(timer);
 
-      if (REDUCE) return; /* CSS already shows everything statically */
+      if (REDUCE) {
+        /* Still run count-ups (informational, not motion sickness) */
+        initCounts();
+        new MutationObserver(function () { setTimeout(initCounts, 60); })
+          .observe(document.getElementById('app'), { childList: true, subtree: true });
+        return;
+      }
 
       initAnims();
+      initCounts();
+      initMagnetic();
       window.addEventListener('mousemove', onTiltMove,    { passive: true });
       window.addEventListener('mousemove', updateSpotlight, { passive: true });
       window.addEventListener('scroll',   onScroll,      { passive: true });
       document.addEventListener('mouseover', onTiltLeave, true);
+      onScroll();
 
       /* Re-run animations on React page navigation */
       new MutationObserver(function (muts) {
         var changed = muts.some(function (m) { return m.addedNodes.length > 0; });
-        if (changed) { seen = new WeakSet(); setTimeout(initAnims, 60); }
+        if (changed) { seen = new WeakSet(); setTimeout(function () { initAnims(); initCounts(); initMagnetic(); }, 60); }
       }).observe(document.getElementById('app'), { childList: true, subtree: true });
     }, 80);
   })();

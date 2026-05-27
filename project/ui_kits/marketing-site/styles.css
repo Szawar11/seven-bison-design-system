@@ -80,10 +80,6 @@ h3.sb-h3 {
 /* ============================================================
    Responsive grids
    ============================================================ */
-@media (max-width: 980px) {
-  /* Nav text links don't fit alongside logo + CTA — keep the CTA only */
-  .sb-nav a { display: none; }
-}
 @media (max-width: 900px) {
   .sb-grid-3 { grid-template-columns: 1fr 1fr !important; }
   .sb-steps  { grid-template-columns: 1fr 1fr !important; gap: 10px !important; }
@@ -99,7 +95,6 @@ h3.sb-h3 {
   .sb-trust { grid-template-columns: repeat(2, 1fr) !important; }
   .sb-hero { padding: 48px 0 40px !important; }
   .sb-hero-right { display: none !important; }
-  .sb-nav a { display: none; }
   .sb-footer-grid { grid-template-columns: 1fr !important; }
 }
 
@@ -585,3 +580,145 @@ h3.sb-h3 {
   transition: transform var(--dur-base) var(--ease-standard);
 }
 .sb-btn--text:hover span:last-child { transform: translateX(4px); }
+
+/* ============================================================
+   2026 bundle — derived tokens, scroll progress, hero reveal,
+   marquee, mobile drawer, forms, page transitions
+   ============================================================ */
+
+/* color-mix() derived accent tints — one source of truth (#E80787) */
+:root {
+  --pink-tint-07: color-mix(in srgb, var(--sb-pink) 7%, transparent);
+  --pink-tint-12: color-mix(in srgb, var(--sb-pink) 12%, transparent);
+  --pink-tint-35: color-mix(in srgb, var(--sb-pink) 35%, transparent);
+}
+
+/* ---- Scroll progress bar ---- */
+.sb-progress {
+  position: fixed; top: 0; left: 0; z-index: 100;
+  height: 2px; width: 100%;
+  background: var(--sb-pink);
+  transform-origin: 0 50%;
+  transform: scaleX(var(--progress, 0));
+}
+@supports (animation-timeline: scroll()) {
+  .sb-progress {
+    transform: scaleX(0);
+    animation: sb-progress-grow linear both;
+    animation-timeline: scroll(root);
+  }
+}
+@keyframes sb-progress-grow { to { transform: scaleX(1); } }
+
+/* ---- Hero load reveal (staggered rise) ---- */
+.sb-hero-left > *,
+.sb-hero-right {
+  opacity: 0;
+  animation: sb-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.sb-hero-left > *:nth-child(1) { animation-delay: 0.04s; }
+.sb-hero-left > *:nth-child(2) { animation-delay: 0.12s; }
+.sb-hero-left > *:nth-child(3) { animation-delay: 0.20s; }
+.sb-hero-left > *:nth-child(4) { animation-delay: 0.28s; }
+.sb-hero-right { animation-delay: 0.22s; }
+@keyframes sb-rise {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Infinite logo marquee ---- */
+.sb-marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+.sb-marquee-track {
+  display: flex; width: max-content;
+  animation: sb-marquee 38s linear infinite;
+}
+.sb-marquee:hover .sb-marquee-track { animation-play-state: paused; }
+.sb-marquee .logo {
+  flex: 0 0 auto; padding: 0 40px;
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 15px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--sb-medium-gray);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+.sb-marquee .logo:hover { color: var(--text-primary); }
+@keyframes sb-marquee { to { transform: translateX(-50%); } }
+
+/* ---- Studio Access mini-stats ---- */
+.sb-results-v { font-family: var(--font-display); font-weight: 700; font-size: 36px; line-height: 1; color: var(--text-primary); letter-spacing: -0.02em; }
+.sb-results-k { font-family: var(--font-body); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-tertiary); margin-top: 6px; }
+
+/* ---- Contact form ---- */
+.sb-form { display: flex; flex-direction: column; gap: 16px; }
+.sb-field { display: flex; flex-direction: column; gap: 6px; }
+.sb-field > span { font-family: var(--font-body); font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-tertiary); }
+.sb-field input, .sb-field textarea {
+  font-family: var(--font-body); font-size: 14px; color: var(--text-primary);
+  background: #FFFFFF; border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-1); padding: 12px 14px; width: 100%;
+  transition: border-color var(--dur-base) var(--ease-standard);
+}
+.sb-field input:focus, .sb-field textarea:focus { outline: none; border-color: var(--sb-pink); }
+.sb-field textarea { resize: vertical; }
+
+/* ---- Mobile menu: hamburger + drawer ---- */
+.sb-burger {
+  display: none;
+  width: 44px; height: 44px; padding: 0;
+  background: transparent; border: 0; cursor: pointer;
+  position: relative; z-index: 60;
+}
+.sb-burger span {
+  position: absolute; left: 11px; right: 11px; height: 1.5px;
+  background: var(--text-primary);
+  transition: transform var(--dur-base) var(--ease-standard),
+              opacity var(--dur-base) var(--ease-standard);
+}
+.sb-burger span:nth-child(1) { top: 18px; }
+.sb-burger span:nth-child(2) { bottom: 18px; }
+.sb-header.dark .sb-burger span { background: #FFFFFF; }
+.sb-burger span.is-open:nth-child(1) { transform: translateY(4px) rotate(45deg); }
+.sb-burger span.is-open:nth-child(2) { transform: translateY(-4px) rotate(-45deg); }
+
+.sb-drawer {
+  position: fixed; inset: 0; top: 80px; z-index: 55;
+  background: rgba(247, 245, 242, 0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  opacity: 0; pointer-events: none;
+  transition: opacity var(--dur-base) var(--ease-standard);
+}
+.sb-drawer.is-open { opacity: 1; pointer-events: auto; }
+.sb-drawer-inner {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 24px clamp(20px, 5.5vw, 80px);
+}
+.sb-drawer-inner a {
+  font-family: var(--font-display); font-weight: 600; font-size: 22px;
+  color: var(--text-primary); text-decoration: none; cursor: pointer;
+  padding: 14px 0; border-bottom: 1px solid var(--border-hairline);
+  transition: color var(--dur-base) var(--ease-standard);
+}
+.sb-drawer-inner a:hover, .sb-drawer-inner a.is-active { color: var(--sb-pink); }
+.sb-drawer-inner .sb-btn { margin-top: 24px; align-self: flex-start; }
+
+@media (max-width: 980px) {
+  .sb-nav { display: none; }
+  .sb-burger { display: block; }
+}
+
+/* ---- Page cross-fade (View Transitions API) ---- */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 320ms;
+  animation-timing-function: var(--ease-standard);
+}
+
+/* Subtle depth texture on dark bands — faint dot grid, no gradient wash */
+.sb-section.dark {
+  background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
+  background-size: 22px 22px;
+}

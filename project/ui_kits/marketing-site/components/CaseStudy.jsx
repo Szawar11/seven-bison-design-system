@@ -36,9 +36,9 @@ const CaseStudy = ({ navigate }) => (
         <span className="rule"></span>
       </div>
       <div className="sb-results">
-        <div className="r"><div className="v">48<span className="u">h</span></div><div className="k">Final cut delivered</div></div>
-        <div className="r"><div className="v">3.4<span className="u">×</span></div><div className="k">Pipeline lift QoQ</div></div>
-        <div className="r"><div className="v">12</div><div className="k">Channel-tailored cuts</div></div>
+        <div className="r"><div className="v"><span data-count="48">0</span><span className="u">h</span></div><div className="k">Final cut delivered</div></div>
+        <div className="r"><div className="v"><span data-count="3.4">0</span><span className="u">×</span></div><div className="k">Pipeline lift QoQ</div></div>
+        <div className="r"><div className="v"><span data-count="12">0</span></div><div className="k">Channel-tailored cuts</div></div>
         <div className="r"><div className="v">0</div><div className="k">Brand-safety incidents</div></div>
       </div>
     </section>

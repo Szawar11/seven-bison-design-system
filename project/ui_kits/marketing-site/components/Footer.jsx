@@ -16,17 +16,17 @@ const Footer = ({ navigate }) => (
         </div>
         <div>
           <h4>Studio</h4>
-          <a>About</a>
+          <a onClick={() => navigate("about")}>About</a>
           <a onClick={() => navigate("portfolio")}>Portfolio</a>
-          <a>Studio Access</a>
-          <a>How we work</a>
+          <a onClick={() => navigate("studio")}>Studio Access</a>
+          <a onClick={() => navigate("about")}>How we work</a>
         </div>
         <div>
           <h4>Connect</h4>
-          <a>Talk to our team</a>
-          <a>Request a quote</a>
-          <a>Book a discovery call</a>
-          <a>hello@sevenbison.com</a>
+          <a onClick={() => navigate("contact")}>Talk to our team</a>
+          <a onClick={() => navigate("contact")}>Request a quote</a>
+          <a onClick={() => navigate("contact")}>Book a discovery call</a>
+          <a href="mailto:hello@sevenbison.com">hello@sevenbison.com</a>
         </div>
       </div>
       <div className="bottom">
