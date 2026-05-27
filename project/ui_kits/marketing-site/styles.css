@@ -784,38 +784,6 @@ h3.sb-h3 {
 }
 .wght-morph.wght-in { font-variation-settings: 'wght' 640; }
 
-/* ---- #6 Custom cursor (dot + lagging ring, morphs on hover) ---- */
-.sb-cursor { position: fixed; inset: 0; z-index: 300; pointer-events: none; opacity: 0; transition: opacity 200ms var(--ease-standard); }
-.sb-cursor.on { opacity: 1; }
-.sb-cursor.hide { opacity: 0 !important; }
-.sb-cursor .dot {
-  position: fixed; top: 0; left: 0; width: 6px; height: 6px; border-radius: 50%;
-  background: var(--sb-pink); will-change: transform;
-}
-.sb-cursor .ring {
-  position: fixed; top: 0; left: 0;
-  width: 30px; height: 30px; border-radius: 50%;
-  border: 1px solid var(--sb-pink);
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--font-body); font-weight: 600; font-size: 10px;
-  letter-spacing: 0.14em; color: #FFFFFF; white-space: nowrap;
-  will-change: transform;
-  transition: width 200ms var(--ease-standard), height 200ms var(--ease-standard),
-              background 200ms var(--ease-standard);
-}
-.sb-cursor .ring[data-mode="play"] { width: 72px; height: 72px; background: var(--sb-pink); }
-.sb-cursor .ring[data-mode="play"] ~ .dot { opacity: 0; }
-/* Hide native cursor on fine-pointer devices, but show the normal pointer
-   over links/buttons (the custom cursor hides itself there). */
-body.cursor-custom { cursor: none; }
-body.cursor-custom .sb-reel, body.cursor-custom .sb-media { cursor: none; }
-body.cursor-custom a, body.cursor-custom button,
-body.cursor-custom .sb-work, body.cursor-custom .sb-sector-card,
-body.cursor-custom .sb-pin-card, body.cursor-custom [role="button"] { cursor: pointer; }
-body.cursor-custom input, body.cursor-custom textarea { cursor: text; }
-@media (prefers-reduced-motion: reduce) { .sb-cursor { display: none; } }
-@media (hover: none), (pointer: coarse) { .sb-cursor { display: none; } }
-
 /* ---- #9 Before / After comparison slider ---- */
 .sb-ba { position: relative; overflow: hidden; cursor: ew-resize; user-select: none; border: 1px solid var(--border-hairline); }
 .sb-ba-pane {
